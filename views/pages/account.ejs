@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>конструктор - Аккаунт</title>
+    <link href="css/account.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/img/box-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Anonymous+Pro:wght@400;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body style="visibility:hidden">
+  <p id="gen"><%= data %></p>
+  <div id="outerMessage2" class="animate__animated animate__fadeInUpBig">
+    <div id="message2">
+      <h1>Вы уверены, что хотите выйти из аккаунта?</h1>
+      <button id="lgOt">Выйти</button>
+      <br>
+      <button id="cancelLgOt">Отмена</button>
+    </div>
+  </div>
+  <div id="outerMessage" class="animate__animated animate__fadeInUpBig">
+    <div id="message">
+      <h1>Личные данные пользователя</h1>
+      <h2>Имя:</h2>
+      <input id="newFname">
+      <h2>Фамилия:</h2>
+      <input id="newLname">
+      <br>
+      <button onclick="updateUserName()" id="saveNewFL">Сохранить</button>
+      <br>
+      <button onclick="cancelNewFL()" id="cancelNewFL">Отмена</button>
+    </div>
+  </div>
+  <div id="hov1">
+    <h3>Нажмите единожды, чтобы выбрать. Нажмите дважды, чтобы отменить выбор.</h3>
+  </div>
+  <div id="hov2">
+    <h3>Публичная статья видна всем пользователям Конструктора. Частная - только Вам.</h3>
+  </div>
+  <div id="hov3">
+    <h3>Эта страница имеет экспериментальный дизайн, который слегка отличается от общей концепции. Если у Вас есть конструктивная критика по этому вопросу - не стесняйтесь отправлять ее на почту bin_of_ideas@gmail.com, или оставлять в разделе "Сообщить об ошибке".</h3>
+  </div>
+
+  <div id="page">
+    <header id="head">
+      <img id="head-image" onclick="toMain()" src="img/logo-white.svg">
+      <button onclick="toWorkshop()" id="toWorkshop"><i class="material-symbols-outlined">bolt</i><i id="hidden" class="material-symbols-outlined">add_circle</i>создать новый проект<i id="hidden" class="material-symbols-outlined">add_circle</i><i id="hidden" class="material-symbols-outlined">add_circle</i></button>
+      <button onclick="logOut()" id="logOut">выйти из аккаунта<i id="hidden" class="material-symbols-outlined">add_circle</i><i class="material-symbols-outlined">logout</i></button>
+    </header>
+    <div id="main">
+      <div id="words">
+        <h1 id="header">Загрузка...</h1>
+        <p id="paragraph">Загрузка...</p>
+      </div>
+      <div id="controls">
+        <p id="temp">для начала работы выберите проект</p>
+        <button id="openArticle" onclick="openThisArticle()"><i  class="material-symbols-outlined">open_in_browser</i><i id="hidden" class="material-symbols-outlined">add_circle</i>открыть проект</button>
+        <button id="changeStatus" onclick="changeArticleStatus()"><i  class="material-symbols-outlined">edit</i><i id="hidden" class="material-symbols-outlined">add_circle</i>изменить статус проекта</button>
+        <button id="deleteArticle" onclick="deleteThisArticle()"><i  class="material-symbols-outlined">delete</i><i id="hidden" class="material-symbols-outlined">add_circle</i>удалить проект</button>
+      </div>
+      <br>
+
+      <table id="table">
+        <tr>
+          <th class="choice">Выбрать</th>
+          <th>Номер</th>
+          <th>Название</th>
+          <th>Дата создания</th>
+          <th>Публичный или частный проект</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+  <footer>
+    <div class="dv1">
+      <div class="dv2">
+        <h2>быстрый доступ</h2>
+        <div class="dv3">
+          <div class="dv4">
+            <p>сообщить об ошибке</p>
+            <p class="pToWorkshop" onclick="toWorkshop()">создать новый проект</p>
+          </div>
+          <div class="dv4">
+            <p class="pLogOut" onclick="logOut()">выйти из аккаунта</p>
+            <p>написать нам</p>
+          </div>
+        </div>
+      </div>
+      <div class="dv2">
+        <h2>навигация</h2>
+        <div class="dv3">
+          <div class="dv4">
+            <p onclick="toMain()">на главную страницу</p>
+          </div>
+          <div class="dv4">
+            <p class="pToWorkshop" onclick="toWorkshop()">на страницу мастерской</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dv1">
+      <img id="btm-logo" src="img/logo-btm.svg">
+      <sup onmouseover="supOn()" onmouseout="supOff()">exp</sup>
+    </div>
+  </footer>
+
+  <script src="js/account.js"></script>
+</body>
+</html>

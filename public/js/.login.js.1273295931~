@@ -1,0 +1,41 @@
+
+function convertForSending(name, email, password) {
+  var object = {
+    name: name,
+    email: email,
+    password: password,
+    actions: []
+  }
+  return object
+}
+
+var btn = document.getElementById("btn");
+btn.addEventListener("click", () => {
+  
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+
+  var object_to_send = convertForSending(name, email, password);
+  
+  fetch("/api", {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json" 
+    },
+    body: JSON.stringify(object_to_send) 
+  })
+
+    .then(function(res) {
+      return res.json();
+    })
+
+    .then(function(res) {
+      if (res) {
+        alert("Аккаунт успешно создан. Теперь войдите в созданный аккаунт");
+      } else if (res !== true) {
+        alert("Аккаунт с такой почтой уже существует");
+      }
+    });
+  
+});

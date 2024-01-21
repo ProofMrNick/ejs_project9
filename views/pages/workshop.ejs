@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0">
+    <title>конструктор - Мастерская</title>
+    <link rel="icon" href="/img/box-icon.png">
+    <link href="css/workshop.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body> 
+
+    <div id="pre-root"></div>
+
+    <div id="outer">
+      <div id="root"></div> 
+    </div>
+
+  <div id="creatorContent">
+
+    <div id="title">
+      <h1 id="one"><span id="white">://</span>Конструктор</h1> 
+      <div id="buttons">
+      <button  id="notLoad" title="⚠ Для начала заполните поля"><strong>Опубликовать</strong></button>
+      </div>
+    </div> 
+
+
+
+    <div id="header">
+      <h1 id="two"><span id="green">:1/</span>Заголовок</h1>
+    </div>
+
+    <div id="header_stuff">
+      <br>
+
+      <textarea title="Нажмите, чтобы написать" oninput="countWord()" id="header_input" cols="45" rows="3" type="text"></textarea>
+
+      <h2 id="count">Количество символов: 0<span id="green">/50 <span id="white"> </span></h2>
+    </div>
+
+    <div id="image">
+     <h1 id="three"><span id="green">:2/</span>Изображение</h1>
+    </div>
+
+    <div id="image_stuff">
+      <br>
+
+      <textarea title="Нажмите, чтобы написать" oninput="countImage()" id="image_input" cols="45" rows="3" type="text"></textarea>
+
+      <h2 id="last"><span id="green">Введите адрес изображения</span> (Картинка <span id="green">❯</span> Правая кнопка мыши <span id="green">❯</span> Копировать адрес картинки)</h2>
+    </div>
+
+    <div id="create">
+      <h2 id="four"><span id="green">:/</span>Создать новый элемент</h2>
+    </div>
+
+    <div id="create_stuff">
+     <select class="typeN" id="input" oninput="changeInstructionN()" title="Нажмите, чтобы выбрать">
+      <option selected="selected">--Не выбрано--</option>
+      <option id="opt1">Основной текст</option>
+      <option id="opt2">Подзаголовок</option>
+      <option id="opt3">📷 Картинка</option>
+      <option id="opt4">🔗 Ссылка</option>
+      <option id="opt5">▎Сноска (цитата)</option> 
+      <option id="opt6">💬 Подпись к картинке</option>
+      <option id="opt7">Микро-подзаголовок</option>
+     </select>
+
+    </div>
+
+    <textarea id="create_input" class="contentN" cols="45" rows="3" type="text"></textarea>
+
+    <h2 id="textFieldInstruction" class="newH2"><span id="white">l</span></h2>
+
+    <br>
+
+  </div>
+
+      <button id="addStuff" onclick="addStuff()">Добавить элемент</button>
+
+    <script src="js/workshop.js"></script>
+  </body>
+
+  <footer id="footer">
+    <h2 id="fooH">© 2023 ://Конструктор</h2>
+
+    <ul id="fooU">
+      <li class="fooL"><a href="in_development.html" target="_blank" class="fooA">Подробнее о проекте</a></li>
+      <li class="fooL"><a href="#" target="_blank" class="fooA">Создать новую веб-страницу</a></li>
+      <li class="fooL"><a class="fooA" onclick="displayAlertBox()" id="fooP">Сообщить об ошибке</a></li>
+      <li class="fooL"><a href="in_development.html" target="_blank" class="fooA">Версия для разработчиков</a></li>
+    </ul>
+
+    <h3 id="fooH3">Версия 7.5</h3>
+  </footer>
+
+</html>
