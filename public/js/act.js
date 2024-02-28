@@ -43,7 +43,6 @@ function doThis(today, image, header, type, content, author_email, likes, downvo
 
   downvoteButton.id = "downvoteButton";
   downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + downvotes.length;
-  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + downvotes.length;
   if (downvotes.includes(localStorage.getItem("logged"))) {
     downvoteButton.classList.add("downvote");
   } else {

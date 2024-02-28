@@ -58,7 +58,13 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/workshop', function(req, res) {
-  res.render('pages/workshop');
+  res.render('pages/workshop', {
+    data: JSON.stringify("new act")
+  });
+});
+
+app.get('/preview', function(req, res) {
+  res.render('pages/preview');
 });
 
 
@@ -129,6 +135,33 @@ app.get('/:user_email_id/:action_name', function(req, res) {
   })
 });
 
+app.get('/:user_email_id/:action_name/workshop', function(req, res) {
+  fs.readFile('./database.json', 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+  } else {
+    var dbase = JSON.parse(data);
+    if (req.params.user_email_id in dbase) {
+      var call = lookup(dbase[req.params.user_email_id].actions, req.params.action_name);
+      if (call[0]) {
+        dt = call[1];
+        res.render('pages/workshop', {
+          data: JSON.stringify(dt)
+        });
+      } else {
+        res.render('pages/404', {
+          data: JSON.stringify("action not found")
+        });
+      }
+    } else {
+      res.render('pages/404', {
+        data: JSON.stringify("user not found")
+      });
+    }
+    }
+  })
+});
+
 
 app.use(express.json());
 
@@ -180,25 +213,34 @@ app.post("/api", function(req, res) {
       }
     }); 
     
-  } else if (req.body.do == "change") {
+  } else if (req.body.do == "update_action") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
       if (error) {
-        res.json("failed to change");
+        res.json("failed to update action");
       } else {
         var dbase = JSON.parse(data1);
-        var call = lookup(dbase[req.body.email_to_change].actions, req.body.what_to_change);
+        var call = lookup(dbase[req.body.prov_data.author_email].actions, req.body.old_header);
         if (call[0]) {
-          dbase[req.body.email_to_change].actions[call[2]].action_hidden = !dbase[req.body.email_to_change].actions[call[2]].action_hidden;
+          var crrAct = dbase[req.body.prov_data.author_email]
+            .actions[call[2]];
+          crrAct.header = req.body.prov_data.header;
+          crrAct.image = req.body.prov_data.image;
+          crrAct.title = req.body.prov_data.title;
+          crrAct.action_hidden = req.body.prov_data.action_hidden;
+          crrAct.type = req.body.prov_data.type;
+          crrAct.content = req.body.prov_data.content;
+          dbase[req.body.prov_data.author_email].actions[call[2]]
+            = crrAct;
           fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
             if (err) {
-              res.json("failed to change");
+              res.json("failed to update action");
             } else {
-              res.json("changed successfully");
+              res.json("action updated successfully");
             }
           });
         } else {
-          res.json("failed to change");
+          res.json("failed to update action");
         }
       }
     }); 
@@ -347,8 +389,17 @@ app.post("/api", function(req, res) {
 
       var perPage = 10;
 
-      console.log(fetched.slice( Number(0 + (perPage * (Number(req.body.prov_data) - 1))), Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) ));
-      res.json(fetched.slice( Number(0 + (perPage * (Number(req.body.prov_data) - 1))), Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) ));
+      var ready_to_send = fetched.slice( Number(0 + (perPage * (Number(req.body.prov_data) - 1))), Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) );
+
+      for (var i = 0; i < fetched.length; i++) {
+        if (fetched[i].pinned == true &&
+            !ready_to_send.includes(fetched[i])) {
+          ready_to_send.push(fetched[i]);
+        }
+      }
+
+      console.log(ready_to_send);
+      res.json(ready_to_send);
       
     }
     });

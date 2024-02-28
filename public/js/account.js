@@ -243,39 +243,13 @@ function openThisArticle() {
 }
 
 
-function changeArticleStatus() {
+function updateThisArticle() {
   for (var j = 0; j < document.querySelectorAll(".inputChoice").length; j++) {
       if (document.querySelectorAll(".inputChoice")[j].checked) {
-        var i = Number(j);
+        unCheck();
+        document.location.href = "/" + data.email + "/" + data.actions[j].header + "/workshop";
       }
   }
-
-  
-  fetch("/api", {
-    method: "POST", 
-    headers: {
-      "Content-Type": "application/json" 
-    },
-    body: JSON.stringify({
-      email_to_change: data.email,
-      what_to_change: data.actions[i].header,
-      do: "change"
-    }) 
-  })
-
-    .then(function(res) {
-      return res.json();
-    })
-
-    .then(function(res) {
-      if (res == 'changed successfully') {
-        document.location.reload();
-      } else {
-        alert("Возникла ошибка при изменении статуса. Повторите попытку позже.");
-        alert(res);
-      }
-    })
-  
 }
 
 

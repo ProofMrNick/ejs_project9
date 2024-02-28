@@ -17,7 +17,10 @@ function getData() {
 
   .then(function(res) {
     var mainContent = document.getElementById("mainContent");
+    var pinnedContent = document.getElementById("pinnedContent");
+    
     mainContent.innerHTML = '<h1 class="h1" id="articlesAll">Статьи от сообщества</h1>';
+    pinnedContent.innerHTML = '<h1 class="h1" id="pinnedArticles">Закрепленные статьи</h1>';
 
     document.getElementById("pageP").innerHTML = "- " + sessionStorage.getItem("pageNum") + " -";
 
@@ -63,7 +66,10 @@ function getData() {
 
       divInn.append(h2, h1, p);
       divOut.append(divInn, img);
-      mainContent.append(divOut);      
+
+      (res[i].pinned == true) ? 
+        pinnedContent.append(divOut) : 
+        mainContent.append(divOut);      
     }
   });
 }

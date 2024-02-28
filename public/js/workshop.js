@@ -1,33 +1,166 @@
 
-var type = [];
-var content = [];
+autosize(document.querySelectorAll("textarea"));
+
+var data = JSON.parse(document.getElementById("gen").innerHTML);
+
+if (data == "new act" && localStorage.getItem("logged") == null) {
+  document.location.href = "/login";
+} else if (data !== "new act" && localStorage.getItem("logged") !== data.author_email) {
+  document.location.href = "/login";
+}
+
+function leaveAlert(e) {
+  e = e || window.event;
+  if (e) {
+      e.returnValue = "Вы уверены, что хотите закрыть вкладку? Ваш прогресс будет потерян.";
+  }
+  return "Вы уверены, что хотите закрыть вкладку? Ваш прогресс будет потерян."
+}
+
+window.addEventListener("beforeunload", leaveAlert);
+
+
 
 var counter = 1;
 
-var select = ["--Не выбрано--", "Основной текст", "Подзаголовок", "📷 Картинка", "🔗 Ссылка", "▎Сноска (цитата)", "💬 Подпись к картинке", "Микро-подзаголовок"];
+var privacySett = "pub"
+function privacyPub() {
+  document.getElementById("inpPub").classList.add("chosenPrivacy");
+  document.getElementById("inpPri").classList.remove("chosenPrivacy");
+  privacySett = "pub";
+}
 
-var header = document.getElementById("header_input");
-var image = document.getElementById("image_input");
+function privacyPri() {
+  document.getElementById("inpPri").classList.add("chosenPrivacy");
+  document.getElementById("inpPub").classList.remove("chosenPrivacy");
+  privacySett = "pri";
+}
 
-var stuff = document.getElementById("creatorContent");
-var preRoot = document.getElementById("pre-root");
-var root = document.getElementById("root");
+function toMain() {
+  document.location.href = "/";
+}
 
-var save = document.getElementById("save");
+function toIndex() {
+  document.location.href = "/login";
+}
 
-var load = document.getElementById("notLoad");
+document.getElementById("top-right-btn-noborder").innerHTML = "<i class='material-symbols-outlined' style='margin-right:5%'>account_circle</i>" + JSON.parse(localStorage
+.getItem("add_info")).name.split(" ")[0];
 
-function doThis() {
 
-  var newImg = document.createElement("img");
-  newImg.setAttribute("src", image.value);
-  newImg.setAttribute("id", "newImg");
-  preRoot.appendChild(newImg);
 
-  var newH1 = document.createElement("h1");
-  newH1.innerHTML = header.value;
-  newH1.setAttribute("id", "newH1");
-  preRoot.appendChild(newH1);
+const instrObj = {
+  txtP: "Введите текст в поле выше. Если он состоит из нескольких абзацев, создайте несколько новых элементов — по одному на каждый абзац",
+  txtH1: "Введите текст подзаголовка в поле выше",
+  txtI: "Вставьте ссылку на изображение из Интернета в поле выше",
+  txtA: "Вставьте адрес ссылки в поле выше",
+  txtQ: "Введите текст сноски (цитаты) в поле выше. Такие элементы привлекают внимание читатеоей выделенной полоской слева",
+  txtH4: "Введите текст подписи к картинке в поле выше",
+  txtH3: "Введите текст микро-подзаголовка в поле выше. Рекомендуется использовать для выделения подпунктов в статье"
+}
+
+const typeObj = {
+    txtP: "p",
+    txtH1: "h2",
+    txtI: "img",
+    txtA: "a",
+    txtQ: "blockquote",
+    txtH4: "h4",
+    txtH3: "h3"
+}
+
+
+
+function changeInstr(elem) {
+  txtarea = elem.parentElement.nextElementSibling;
+  var classList = txtarea.classList;
+  while (classList.length > 0) {
+    classList.remove(classList.item(0));
+  }
+  txtarea.classList.add("textareaElement", "txtElem", elem.value);
+  txtarea.nextElementSibling.innerHTML = instrObj[elem.value];
+  autosize.update(txtarea);
+}
+
+function addElems() {
+  var outDiv = document.createElement("div");
+  outDiv.setAttribute("class", "newElem");
+
+  var inDiv = document.createElement("div");
+  inDiv.setAttribute("class", "innerElem");
+
+  var h4 = document.createElement("h4");
+  h4.innerHTML = ((counter < 10) ? "0" + counter : counter);
+
+  var sel = document.createElement("select");
+  sel.setAttribute("class", "selectElem");
+  sel.setAttribute("oninput", "changeInstr(this)");
+
+  var o1 = document.createElement("option");
+  var o2 = document.createElement("option");
+  var o3 = document.createElement("option");
+  var o4 = document.createElement("option");
+  var o5 = document.createElement("option");
+  var o6 = document.createElement("option");
+  var o7 = document.createElement("option");
+
+  o1.value = "txtP"
+  o1.innerHTML = "основной текст"
+  sel.appendChild(o1);
+
+  o2.value = "txtH1"
+  o2.innerHTML = "подзаголовок"
+  sel.appendChild(o2);
+
+  o3.value = "txtI"
+  o3.innerHTML = "картинка"
+  sel.appendChild(o3);
+
+  o4.value = "txtA"
+  o4.innerHTML = "ссылка"
+  sel.appendChild(o4);
+
+  o5.value = "txtQ"
+  o5.innerHTML = "сноска (цитата)"
+  sel.appendChild(o5);
+
+  o6.value = "txtH4"
+  o6.innerHTML = "подпись к картинке"
+  sel.appendChild(o6);
+
+  o7.value = "txtH3"
+  o7.innerHTML = "микро-подзаголовок"
+  sel.appendChild(o7);
+
+  var ta = document.createElement("textarea");
+  ta.rows = "5";
+  ta.classList.add("textareaElement", "txtElem");
+
+  var p = document.createElement("p");
+  p.setAttribute("class", "instrBody");
+  p.innerHTML = instrObj.txtP;
+
+
+  inDiv.appendChild(h4);
+  inDiv.appendChild(sel);
+  outDiv.appendChild(inDiv);
+  outDiv.appendChild(ta);
+  outDiv.appendChild(p);
+
+  document.getElementById("items").insertBefore(outDiv, document.getElementById("addElem"));
+  autosize(document.querySelectorAll("textarea"));
+  counter++;
+}
+
+addElems();
+
+
+function collect() {
+  var type = [];
+  var content = [];
+
+  var header = document.getElementById("h1Inp");
+  var image = document.getElementById("imgInp");
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -36,447 +169,22 @@ function doThis() {
 
   today = dd + '.' + mm + '.' + yyyy;
 
-  var newP = document.createElement("p");
-  newP.innerHTML = "Опубликовано: " + today + " • " + "Создано на ://Конструктор";
-  newP.setAttribute("id", "newP");
-  preRoot.appendChild(newP);
-
   var date = new Date();
   var fullToday = today + ' ' + ((date.getHours() < 10)?'0':'') + date.getHours() +':'+ ((date.getMinutes() < 10)?'0':'') + date.getMinutes() + ':'+ ((date.getSeconds() < 10)?'0':'') + date.getSeconds();
 
-  /*---------------*/
 
-  /*Testing function goes here*/
+  var selElem = document.getElementsByClassName("selectElem");
+  var taElem = document.getElementsByClassName("txtElem");
 
-  /*--------------*/
-
-  for (var i = 0; i < counter; i++) {
-    var elem = document.getElementsByClassName("typeN");
-  try {
-
-    if (elem[i].value == "📷 Картинка") {
-      type.push("img");
-    } else if (elem[i].value == "Подзаголовок") {
-      type.push("h2")
-    } else if (elem[i].value == "Основной текст") {
-      type.push("p")
-    } else if (elem[i].value == "▎Сноска (цитата)") {
-      type.push("blockquote")
-    } else if (elem[i].value == "🔗 Ссылка") {
-      type.push("a")
-    } else if (elem[i].value == "💬 Подпись к картинке") {
-      type.push("h4");
-    } else if (elem[i].value == "Микро-подзаголовок") {
-      type.push("h3");
-    } else if (elem[i].value == "--Не выбрано--") {
-      type.push("nope")
-    } 
-  } catch {
-
-  } 
+  for (var i = 0; i < selElem.length; i++) {
+    type.push(typeObj[selElem[i].value]);
+    content.push(taElem[i].value.trim());
   }
 
-  for (var i = 0; i < counter; i++) {
-
-
-   /* if (document.getElementsByClassName("sup")[i].value == "--Не выбрано--" || document.getElementsByClassName("lol")[i].value == null || document.getElementsByClassName("lol")[i].value == " ") {
-    document.getElementsByClassName("lol")[i].remove();
-  } */
-
-
-
-  if (type[i] == "img") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.setAttribute("src", content[i]);
-    e.setAttribute("class", "createdI");
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } else if (type[i] == "a") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var pN = document.createElement("h4");
-    pN.setAttribute("class", "pN");
-    pN.innerHTML = "» ";
-
-    var e = document.createElement(type[i]);
-    if (!content[i].includes("http")) {
-      e.setAttribute("href", "https://" + content[i].trimStart());
-    } else {
-      e.setAttribute("href", content[i].trimStart());
-    }
-    e.innerHTML = content[i] + " ↗";
-    e.setAttribute("class", "createdA");
-
-    root.appendChild(pN);
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } else if (type[i] == "nope") {
-
-    content.push(" ");
-    continue
-
-  } else if (type[i] == "h2") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.innerHTML = content[i];
-    e.setAttribute("class", "createdH");
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } else if (type[i] == "p") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.innerHTML = content[i];
-    e.setAttribute("class", "createdP");
-    root.appendChild(e);
-    root.appendChild(brN);
-
- } else if (type[i] == "blockquote") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.innerHTML = content[i];
-    e.setAttribute("class", "createdQ");
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } else if (type[i] == "h4") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.innerHTML = content[i];
-    e.setAttribute("class", "createdH4");
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } else if (type[i] == "h3") {
-
-    content.push(document.getElementsByClassName("contentN")[i].value);
-
-    if (!content[i]) {
-      continue
-    }
-
-    var body = document.getElementById("body");
-    var brN = document.createElement("br");
-    var e = document.createElement(type[i]);
-    e.innerHTML = content[i];
-    e.setAttribute("class", "createdH3");
-    root.appendChild(e);
-    root.appendChild(brN);
-
-  } 
-}
-
-  document.getElementById("addStuff").remove();
-  stuff.remove();
-
-
-  /*-------------*/
-
-  return [today, fullToday, image.value.trim(), header.value.trim(), type, content]
-
-}
-
-
-/*addStuff() function goes here*/
-
-
-function addStuff() {
-  var newH = document.createElement("h2");
-  var newT = document.createElement("textarea");
-  var newI = document.createElement("select");
-  var newH2 = document.createElement("h2");
-
-  var newBr = document.createElement("br");
-
-  var stuff = document.getElementById("creatorContent");
-  var root = document.getElementById("root");
-
-  newH2.setAttribute("class", "newH2");
-
-  newH.setAttribute("class", "newH");
-  newH.innerHTML = '<span id="green">:/</span>Создать новый элемент';
-
-  newT.setAttribute("rows", "3");
-  newT.setAttribute("cols", "45");
-  newT.setAttribute("class", "contentN"); 
-
-  newI.setAttribute("class", "typeN");
-  newI.setAttribute("id", "input");
-  newI.setAttribute("oninput", "changeInstructionN()");
-  for (var i = 0; i < select.length; i++) {
-    var option = document.createElement("option");
-    option.value = select[i];
-    option.text = select[i];
-
-    if (i == 1) {
-      option.setAttribute("id", "opt1");
-    } else if (i == 2) {
-      option.setAttribute("id", "opt2");
-    } else if (i == 3) {
-      option.setAttribute("id", "opt3");
-    } else if (i == 4) {
-      option.setAttribute("id", "opt4");
-    } else if (i == 5) {
-      option.setAttribute("id", "opt5");
-    } else if (i == 6) {
-      option.setAttribute("id", "opt6");
-    } else if (i == 7) {
-      option.setAttribute("id", "opt7")
-    }
-
-    newI.appendChild(option);
- }
-
-  stuff.appendChild(newH);
-  stuff.appendChild(document.createElement("br"));
-  stuff.appendChild(newI);
-  stuff.appendChild(document.createElement("br"));
-  stuff.appendChild(newT);
-  stuff.appendChild(document.createElement("br"));
-  stuff.appendChild(newH2);
-
-  counter++;
-  return counter
-
-}
-
-
-function countWord() {
-  var words = document.getElementById("header_input").value;
-  var count = 0;
-  var split = words.split('');
-  for (var i = 0; i < split.length; i++) {
-  if (split[i] != "") {
-    count += 1;
-   }
-  }
-  if (count > 50) {
-    document.getElementById("count").innerHTML = 'Количество символов: ' + count + '<span id="green">/50</span>' + '  <span id="red" title="Превышен лимит символов">⚠</span>'
-
-    load.setAttribute("id", "notLoad");
-    load.removeAttribute("onclick");
-    load.setAttribute("title", "⚠ Найдены ошибки в заполнении заголовка и/или изображения");
-
-  } else if (!image.value) { 
-
-    load.setAttribute("id", "notLoad");
-    load.removeAttribute("onclick");
-    load.setAttribute("title", "⚠ Найдены ошибки в заполнении заголовка и/или изображения");
-    document.getElementById("count").innerHTML = 'Количество символов: ' + count + '<span id="green">/50</span>' + ' <span id="white"> </span>';
-
-  } else if (!words) {
-
-    load.setAttribute("id", "notLoad");
-    load.removeAttribute("onclick");
-    load.setAttribute("title", "⚠ Найдены ошибки в заполнении заголовка и/или изображения");
-    document.getElementById("count").innerHTML = 'Количество символов: ' + count + '<span id="green">/50</span>' + ' <span id="white"> </span>';
-
-  } else {
-  document.getElementById("count").innerHTML = 'Количество символов: ' + count + '<span id="green">/50</span>' + ' <span id="white"> </span>';
-
-   load.setAttribute("id", "do");
-   load.removeAttribute("title");
-   load.setAttribute("onclick", "doThis()")
-
-  }
-}
-
-
-function countImage () {
-  if (!image.value) {
-
-    load.setAttribute("id", "notLoad");
-    load.removeAttribute("onclick");
-    load.setAttribute("title", "⚠ Найдены ошибки в заполнении заголовка и/или изображения");
-
-  } else if (!header.value) {
-
-    load.setAttribute("id", "notLoad");
-    load.removeAttribute("onclick");
-    load.setAttribute("title", "⚠ Найдены ошибки в заполнении заголовка и/или изображения");
-
-  } else {
-
-   load.setAttribute("id", "do");
-   load.removeAttribute("title");
-   //load.setAttribute("onclick", "doThis()")
-   load.setAttribute("onclick", "pushNewAction()");
-  }
-}
-
-
-/**/
-
-function displayAlertBox() {
-
-  if (prompt("Опишите возникшую проблему")) {
-    alert("Спасибо, что помогаете улучшать работу проекта!");
-  } else {
-    alert("Сообщение не было отправлено.");
-  }
-
-}
-
-/**/
-
-
-function changeInstructionN() {
-
-  var contentN = document.getElementsByClassName("contentN");
-  var typeN = document.getElementsByClassName("typeN");
-  var h2N = document.getElementsByClassName("newH2");
-
-  for (var i = 0; i < counter; i++) {
-
-    if (typeN[i].value == "Подзаголовок") {
-      contentN[i].style.color = "#3EFF44";
-      contentN[i].style.fontWeight = "bold";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "55px";
-
-      h2N[i].innerHTML = '<span id="green">Введите подзаголовок в поле выше</span>';
-
-    } else if (typeN[i].value == "Основной текст") {
-      contentN[i].style.color = "black";
-      contentN[i].style.fontWeight = "normal";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Введите текст в поле выше. Если он состоит из нескольких абзацев, создайте несколько новых элементов — по одному на каждый абзац</span>';
-
-    } else if (typeN[i].value == "📷 Картинка") {
-      contentN[i].style.color = "#3EFF44";
-      contentN[i].style.fontWeight = "normal";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Введите адрес изображения в поле выше</span> (Картинка <span id="green">❯</span> Правая кнопка мыши <span id="green">❯</span> Копировать адрес картинки)';
-
-    } else if (typeN[i].value == "🔗 Ссылка") {
-      contentN[i].style.color = "black";
-      contentN[i].style.fontWeight = "normal";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Введите адрес ссылки в поле выше</span>';
-
-    } else if (typeN[i].value == "▎Сноска (цитата)") {
-      contentN[i].style.color = "#454545";
-      contentN[i].style.fontWeight = "normal";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "9px solid #3EFF44";
-      contentN[i].style.paddingLeft = "10px";
-      contentN[i].style.fontStyle = "italic";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Введите текст сноски (цитаты) в поле выше</span>';
-
-    } else if (typeN[i].value == "--Не выбрано--") {
-      contentN[i].style.color = "black";
-      contentN[i].style.fontWeight = "normal";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Для начала выберите тип нового элемента</span> <span id="red" title="Не выбран тип элемента">⚠</span>';
-
-    } else if (typeN[i].value == "💬 Подпись к картинке") {
-      contentN[i].style.color = "#454545";
-      contentN[i].style.fontWeight = "bold";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "italic";
-      contentN[i].style.fontSize = "45px";
-
-      h2N[i].innerHTML = '<span id="green">Введите текст подписи для картинки в поле выше</span>';
-
-  } else if (typeN[i].value == "Микро-подзаголовок") {
-      contentN[i].style.color = "black";
-      contentN[i].style.fontWeight = "bold";
-      contentN[i].innerHTML = "";
-      contentN[i].style.borderLeft = "none";
-      contentN[i].style.paddingLeft = "0px";
-      contentN[i].style.fontStyle = "normal";
-      contentN[i].style.fontSize = "50px";
-
-      h2N[i].innerHTML = '<span id="green">Введите текст микро-подзаголовка в поле выше</span>';
-
-  }
-  }
-}
-
-
-
-// Fetch API (sending new action to database)
-
-function pushNewAction() {
-  var dataArray = doThis();
-  dataArray.unshift(prompt("Как Вы хотите назвать эту статью?", "Новая статья"));
+  var dataArray = [today, fullToday, image.value.trim(), header.value.trim(), type, content]
+  dataArray.unshift(
+    ((document.getElementById("title").value.trim().length != 0) ? document.getElementById("title").value.trim() : "Новая статья")
+  );
 
   var action_to_send = {
     title: dataArray[0],
@@ -496,58 +204,133 @@ function pushNewAction() {
       ratio: 0
     },
     add_info: [],
-    action_hidden: false
+    action_hidden: ((privacySett == "pub") ? false : true)
   }
 
-  //alert(JSON.stringify(action_to_send));
-
-  fetch("/api", {
-    method: "POST", 
-    headers: {
-      "Content-Type": "application/json" 
-    },
-    body: JSON.stringify({
-      do: 'create_action',
-      prov_data: action_to_send
-    }) 
-  })
-
-    .then(function(res) {
-      return res.json();
-    })
-
-    .then(function(res) {
-      if (res == "action created successfully") {
-        alert("Статья успешно создана");
-        document.location.href = "/" + localStorage.getItem("logged");
-      } else if (res !== "done") {
-        alert("Что-то пошло не так...");
-      }
-    });
+  return action_to_send
 }
-/* 
-localStorage.setItem("logged", res.email);
 
-const object_to_send = pushNewAction(title, today, fullToday, image, header, type, content);
 
-fetch("/api", {
-    method: "POST", 
-    headers: {
-      "Content-Type": "application/json" 
-    },
-    body: JSON.stringify(object_to_send) 
-  })
+function preview() {
+  if (document.getElementById("h1Inp").value.trim().length != 0 &&
+      document.getElementById("imgInp").value.trim().length != 0) {
+    var action_to_preview = collect();
+    localStorage.setItem("preview_action", JSON.stringify(action_to_preview));
+    window.open("/preview", "_blank");
+  } else {
+    alert("Отсутствует заголовок или обложка статьи");
+  }
+}
 
-    .then(function(res) {
-      return res.json();
+
+
+if (data !== "new act") {  
+  document.getElementById("mainH1").innerHTML = "Редактирование статьи";
+  document.getElementById("doPublish").innerHTML = "Сохранить";
+  
+  document.getElementById("h1Inp").value = data.header;
+  document.getElementById("imgInp").value = data.image;
+  autosize.update(document.getElementById("h1Inp"));
+  autosize.update(document.getElementById("imgInp"));
+
+  document.getElementById("title").value = data.title;
+  (data.action_hidden) ? privacyPri() : privacyPub();
+
+  document.getElementById("doPublish").setAttribute("onclick", "updateAction()");
+
+  for (var i = 0; i < data.type.length; i++) {
+    addElems();
+    document.querySelectorAll(".selectElem")[i].value = 
+    Object.keys(typeObj).find((key) => typeObj[key] == data.type[i]);
+    document.querySelectorAll(".txtElem")[i].value = data.content[i];
+    changeInstr(document.querySelectorAll(".selectElem")[i]);
+    autosize.update(document.querySelectorAll(".txtElem")[i]);
+  }  
+}
+
+
+
+
+// Fetch API (sending new action to database)
+
+function pushNewAction() {
+  if (localStorage.getItem("logged") != null) {
+    
+    var action_to_send = collect();
+    window.removeEventListener("beforeunload", leaveAlert);
+
+    fetch("/api", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        do: 'create_action',
+        prov_data: action_to_send
+      }) 
     })
 
-    .then(function(res) {
-      if (res) {
-        alert("Аккаунт успешно создан. Теперь войдите в созданный аккаунт");
-        document.location.reload()
-      } else if (res !== true) {
-        alert("Аккаунт с такой почтой уже существует");
-      }
-    });
-*/
+      .then(function(res) {
+        return res.json();
+      })
+
+      .then(function(res) {
+        if (res == "action created successfully") {
+          alert("Статья успешно создана");
+          document.location.href = "/" + localStorage.getItem("logged");
+        } else if (res !== "done") {
+          alert("Что-то пошло не так...");
+        }
+      });
+  } else {
+    if (confirm("Невозможно опубликовать статью, так как Вы вышли из аккаунта. Нажмите ОК, чтобы вернуться на страницу входа и регистрации. Ваш прогресс будет потерян.")) {
+      document.location.href = "/login";
+    }
+  }
+  
+}
+
+
+function updateAction() {
+  if (localStorage.getItem("logged") != null && localStorage.getItem("logged") == data.author_email) {
+
+    var upd_data = collect();
+    window.removeEventListener("beforeunload", leaveAlert);
+
+    fetch("/api", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        do: 'update_action',
+        old_header: data.header,
+        prov_data: upd_data
+      }) 
+    })
+
+      .then(function(res) {
+        return res.json();
+      })
+
+      .then(function(res) {
+        if (res == "action updated successfully") {
+          alert("Статья успешно обновлена");
+          document.location.href = "/" + localStorage.getItem("logged");
+        } else if (res !== "done") {
+          alert("Что-то пошло не так...");
+        }
+      });
+  } else {
+    if (confirm("Невозможно обновить статью, так как Вы вышли из аккаунта. Нажмите ОК, чтобы вернуться на страницу входа и регистрации. Эта статья останется без изменений.")) {
+      document.location.href = "/login";
+    }
+  }
+  
+}
+
+
+
+
+
+document.body.removeChild(document.getElementById("gen"));
