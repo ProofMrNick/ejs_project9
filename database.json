@@ -50,15 +50,21 @@
                 "header": "test_2",
                 "type": [
                     "h3",
-                    "nope",
+                    "p",
                     "a",
-                    "nope"
+                    "p",
+                    "p",
+                    "p",
+                    "p"
                 ],
                 "content": [
                     "rfr",
-                    " ",
+                    "",
                     "yuttr",
-                    " "
+                    "",
+                    "",
+                    "",
+                    ""
                 ],
                 "author_email": "wer@wer.com",
                 "pinned": false,
@@ -81,8 +87,8 @@
                 "type": [
                     "h3",
                     "img",
-                    "nope",
-                    "nope"
+                    "p",
+                    "p"
                 ],
                 "content": [
                     "текст",

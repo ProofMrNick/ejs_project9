@@ -42,7 +42,8 @@ function doThis(today, image, header, type, content, author_email, likes, downvo
   likeButton.addEventListener("click", like);
 
   downvoteButton.id = "downvoteButton";
-  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + downvotes.length;
+  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + downvotes.length;
+  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + downvotes.length;
   if (downvotes.includes(localStorage.getItem("logged"))) {
     downvoteButton.classList.add("downvote");
   } else {
@@ -248,7 +249,7 @@ function like() {
       .then(function(res) {
         var res = JSON.parse(res);
         document.getElementById("likeButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>favorite</i>" + res[0].length;
-        document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + res[1].length;
+        document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + res[1].length;
         if (res[0].includes(localStorage.getItem("logged"))) {
           document.getElementById("likeButton").classList
             .add("like");
@@ -290,7 +291,7 @@ function downvote() {
       .then(function(res) {
         var res = JSON.parse(res);
         document.getElementById("likeButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>favorite</i>" + res[0].length;
-        document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + res[1].length;
+        document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + res[1].length;
         if (res[0].includes(localStorage.getItem("logged"))) {
           document.getElementById("likeButton").classList
             .add("like");

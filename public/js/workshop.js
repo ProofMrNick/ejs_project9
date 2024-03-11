@@ -152,7 +152,6 @@ function addElems() {
   counter++;
 }
 
-addElems();
 
 
 function collect() {
@@ -246,6 +245,8 @@ if (data !== "new act") {
     changeInstr(document.querySelectorAll(".selectElem")[i]);
     autosize.update(document.querySelectorAll(".txtElem")[i]);
   }  
+} else {
+  addElems();
 }
 
 

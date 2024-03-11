@@ -38,8 +38,8 @@ function doThis(today, image, header, type, content, author_email) {
   likeButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>favorite</i>" + 0;
 
   downvoteButton.id = "downvoteButton";
-  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + 0;
-  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>thumb_down</i>" + 0;
+  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + 0;
+  downvoteButton.innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + 0;
 
   likePlusDownvote.appendChild(likeButton);
   likePlusDownvote.appendChild(downvoteButton);
