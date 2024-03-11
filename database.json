@@ -24,7 +24,7 @@
                 "header": "Business",
                 "type": [
                     "p",
-                    "h1"
+                    "h2"
                 ],
                 "content": [
                     "business text",
