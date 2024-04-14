@@ -88,10 +88,10 @@ app.get('/:user_email_id', function(req, res) {
 });
 
 
-function lookup(data, source) { 
+function lookup(data, source, dup) { 
   var flag = false;
   for (var i = 0; i < data.length; i++) {
-    if (data[i]["header"] == source) {
+    if (data[i].id == source) {
       flag = true
       break
     } 
@@ -99,23 +99,32 @@ function lookup(data, source) {
   
   if (flag) {
     var articles = []
+    var articlesDups = []
     for (var i = 0; i < data.length; i++) {
-      articles.push(data[i]["header"]);
+      if (data[i].id == source) {
+        articles.push(data[i]);
+        articlesDups.push(data[i].add_info.dup);
+      }
     }
-    return [true, data[articles.indexOf(source)], articles.indexOf(source)]
+    var act = data.find((el) => 
+      el.id == source && el.add_info.dup == dup
+    );
+    
+    return [true, act, articles, articlesDups, data.indexOf(act)]
   } else {
     return [false]
   }
 }
 
-app.get('/:user_email_id/:action_name', function(req, res) {
+
+app.get('/:user_email_id/:id/:dup', function(req, res) {
   fs.readFile('./database.json', 'utf8', (err, data) => {
     if (err) {
       console.log(err);
   } else {
     var dbase = JSON.parse(data);
     if (req.params.user_email_id in dbase) {
-      var call = lookup(dbase[req.params.user_email_id].actions, req.params.action_name);
+      var call = lookup(dbase[req.params.user_email_id].actions, req.params.id, req.params.dup);
       if (call[0]) {
         dt = call[1];
         res.render('pages/act', {
@@ -135,15 +144,15 @@ app.get('/:user_email_id/:action_name', function(req, res) {
   })
 });
 
-app.get('/:user_email_id/:action_name/workshop', function(req, res) {
+app.get('/:user_email_id/:id/:dup/workshop', function(req, res) {
   fs.readFile('./database.json', 'utf8', (err, data) => {
     if (err) {
       console.log(err);
   } else {
     var dbase = JSON.parse(data);
     if (req.params.user_email_id in dbase) {
-      var call = lookup(dbase[req.params.user_email_id].actions, req.params.action_name);
-      if (call[0]) {
+      var call = lookup(dbase[req.params.user_email_id].actions, req.params.id, req.params.dup);
+      if (call[0] && call[1] !== undefined) {
         dt = call[1];
         res.render('pages/workshop', {
           data: JSON.stringify(dt)
@@ -197,9 +206,9 @@ app.post("/api", function(req, res) {
         res.json("failed to delete");
       } else {
         var dbase = JSON.parse(data1);
-        var call = lookup(dbase[req.body.email_to_change].actions, req.body.what_to_change);
-        if (call[0]) {
-          dbase[req.body.email_to_change].actions.splice(call[2], 1);
+        var call = lookup(dbase[req.body.email_to_change].actions, req.body.id_to_change, req.body.dup_to_change);
+        if (call[0] && call[1] !== undefined) {
+          dbase[req.body.email_to_change].actions.splice(call[4], 1);
           fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
             if (err) {
               res.json("failed to delete");
@@ -220,18 +229,21 @@ app.post("/api", function(req, res) {
         res.json("failed to update action");
       } else {
         var dbase = JSON.parse(data1);
-        var call = lookup(dbase[req.body.prov_data.author_email].actions, req.body.old_header);
-        if (call[0]) {
-          var crrAct = dbase[req.body.prov_data.author_email]
-            .actions[call[2]];
+        var call = lookup(dbase[req.body.prov_data.author_email].actions, req.body.old_id, req.body.old_dup);
+        var callNew = lookup(dbase[req.body.prov_data.author_email].actions, req.body.prov_data.id, req.body.prov_data.add_info.dup);
+        if (call[0] && call[1] !== undefined) {
+          var crrAct = call[1];
           crrAct.header = req.body.prov_data.header;
           crrAct.image = req.body.prov_data.image;
           crrAct.title = req.body.prov_data.title;
           crrAct.action_hidden = req.body.prov_data.action_hidden;
           crrAct.type = req.body.prov_data.type;
           crrAct.content = req.body.prov_data.content;
-          dbase[req.body.prov_data.author_email].actions[call[2]]
-            = crrAct;
+          if (callNew[0] && crrAct.id !== req.body.prov_data.id) {
+            crrAct.add_info.dup = Math.max(...callNew[3]) + 1;
+          }
+          crrAct.id = req.body.prov_data.id;
+          dbase[req.body.prov_data.author_email].actions[call[4]] = crrAct;
           fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
             if (err) {
               res.json("failed to update action");
@@ -252,8 +264,13 @@ app.post("/api", function(req, res) {
         res.json("failed to create action");
       } else {
         var dbase = JSON.parse(data1);
+        var action = req.body.prov_data;
+        var call = lookup(dbase[action.author_email].actions, action.id, 0);
+        if (call[0]) {
+          action.add_info.dup = Math.max(...call[3]) + 1;
+        }
         dbase[req.body.prov_data.author_email].actions
-.push(req.body.prov_data);
+.push(action);
         fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
           if (err) {
             res.json("failed to create action");
@@ -289,12 +306,12 @@ app.post("/api", function(req, res) {
         res.json("failed to like");
       } else {
         var dbase = JSON.parse(data1);
-        var call = lookup(dbase[req.body.prov_data[1]].actions, req.body.prov_data[2]);
-        if (call[0]) {
+        var call = lookup(dbase[req.body.prov_data[1]].actions, req.body.prov_data[2], req.body.prov_data[3]);
+        if (call[0] && call[1] !== undefined) {
           var act_l =
-    dbase[req.body.prov_data[1]].actions[call[2]].stats.likes;
-          var act_d = 
-    dbase[req.body.prov_data[1]].actions[call[2]].stats.downvotes;
+    dbase[req.body.prov_data[1]].actions[call[4]].stats.likes;
+          var act_d =
+    dbase[req.body.prov_data[1]].actions[call[4]].stats.downvotes;
           if (act_d.includes(req.body.prov_data[0]) && !(act_l.includes(req.body.prov_data[0]))) {
             act_d.splice(act_d.indexOf(req.body.prov_data[0]), 1);
             act_l.push(req.body.prov_data[0]);
@@ -303,6 +320,8 @@ app.post("/api", function(req, res) {
           } else {
             act_l.push(req.body.prov_data[0]);
           }
+          dbase[req.body.prov_data[1]].actions[call[4]].stats.likes = act_l;
+          dbase[req.body.prov_data[1]].actions[call[4]].stats.downvotes = act_d;
           fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
             if (err) {
               res.json("failed to like");
@@ -315,7 +334,7 @@ app.post("/api", function(req, res) {
         }
       }
     });
-    
+
   } else if (req.body.do == "downvote") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
@@ -323,12 +342,12 @@ app.post("/api", function(req, res) {
         res.json("failed to downvote");
       } else {
         var dbase = JSON.parse(data1);
-        var call = lookup(dbase[req.body.prov_data[1]].actions, req.body.prov_data[2]);
-        if (call[0]) {
+        var call = lookup(dbase[req.body.prov_data[1]].actions, req.body.prov_data[2], req.body.prov_data[3]);
+        if (call[0] && call[1] !== undefined) {
           var act_l =
-    dbase[req.body.prov_data[1]].actions[call[2]].stats.likes;
+    dbase[req.body.prov_data[1]].actions[call[4]].stats.likes;
           var act_d =
-    dbase[req.body.prov_data[1]].actions[call[2]].stats.downvotes;
+    dbase[req.body.prov_data[1]].actions[call[4]].stats.downvotes;
           if (act_l.includes(req.body.prov_data[0]) && !(act_d.includes(req.body.prov_data[0]))) {
             act_l.splice(act_l.indexOf(req.body.prov_data[0]), 1);
             act_d.push(req.body.prov_data[0]);
@@ -337,6 +356,8 @@ app.post("/api", function(req, res) {
           } else {
             act_d.push(req.body.prov_data[0]);
           }
+          dbase[req.body.prov_data[1]].actions[call[4]].stats.likes = act_l;
+          dbase[req.body.prov_data[1]].actions[call[4]].stats.downvotes = act_d;
           fs.writeFile('./database.json', JSON.stringify(dbase, null, 4), err => {
             if (err) {
               res.json("failed to downvote");
@@ -349,7 +370,7 @@ app.post("/api", function(req, res) {
         }
       }
     });
-    
+
   } else if (req.body.do == "fetch_data") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {

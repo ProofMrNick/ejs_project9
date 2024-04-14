@@ -36,20 +36,10 @@
       <button onclick="cancelNewFL()" id="cancelNewFL">Отмена</button>
     </div>
   </div>
-  <div id="hov1">
-    <h3>Нажмите единожды, чтобы выбрать. Нажмите дважды, чтобы отменить выбор.</h3>
-  </div>
-  <div id="hov2">
-    <h3>Публичная статья видна всем пользователям Конструктора. Частная - только Вам.</h3>
-  </div>
-  <div id="hov3">
-    <h3>Эта страница имеет экспериментальный дизайн, который слегка отличается от общей концепции. Если у Вас есть конструктивная критика по этому вопросу - не стесняйтесь отправлять ее на почту bin_of_ideas@gmail.com, или оставлять в разделе "Сообщить об ошибке".</h3>
-  </div>
-
   <div id="page">
     <header id="head">
       <img id="head-image" onclick="toMain()" src="img/logo-white.svg">
-      <button onclick="toWorkshop()" id="toWorkshop"><i class="material-symbols-outlined">bolt</i><i id="hidden" class="material-symbols-outlined">add_circle</i>создать новый проект<i id="hidden" class="material-symbols-outlined">add_circle</i><i id="hidden" class="material-symbols-outlined">add_circle</i></button>
+      <button onclick="toWorkshop()" id="toWorkshop"><i class="material-symbols-outlined">bolt</i><i id="hidden" class="material-symbols-outlined">add_circle</i>создать новую статью<i id="hidden" class="material-symbols-outlined">add_circle</i><i id="hidden" class="material-symbols-outlined">add_circle</i></button>
       <button onclick="logOut()" id="logOut">выйти из аккаунта<i id="hidden" class="material-symbols-outlined">add_circle</i><i class="material-symbols-outlined">logout</i></button>
     </header>
     <div id="main">
@@ -58,27 +48,17 @@
         <p id="paragraph">Загрузка...</p>
       </div>
       <div id="controls">
-        <p id="temp">для начала работы выберите проект</p>
-        <button id="openArticle" onclick="openThisArticle()"><i  class="material-symbols-outlined">open_in_browser</i><i id="hidden" class="material-symbols-outlined">add_circle</i>открыть проект</button>
-        <button id="changeStatus" onclick="updateThisArticle()"><i  class="material-symbols-outlined">edit</i><i id="hidden" class="material-symbols-outlined">add_circle</i>редактировать проект</button>
-        <button id="deleteArticle" onclick="deleteThisArticle()"><i  class="material-symbols-outlined">delete</i><i id="hidden" class="material-symbols-outlined">add_circle</i>удалить проект</button>
+        <p id="temp">для начала работы выберите статью</p>
       </div>
       <br>
 
-      <table id="table">
-        <tr>
-          <th class="choice">Выбрать</th>
-          <th>Номер</th>
-          <th>Название</th>
-          <th>Дата создания</th>
-          <th>Публичный или частный проект</th>
-        </tr>
-      </table>
+      <div id="content"></div>
+      
     </div>
   </div>
   <br>
   <footer>
-    <div class="dv1">
+    <div class="dv1" id="dv1">
       <div class="dv2">
         <h2>быстрый доступ</h2>
         <div class="dv3">
@@ -106,7 +86,6 @@
     </div>
     <div class="dv1">
       <img id="btm-logo" src="img/logo-btm.svg">
-      <sup onmouseover="supOn()" onmouseout="supOff()">exp</sup>
     </div>
   </footer>
 

@@ -18,7 +18,11 @@ function doThis(today, image, header, type, content, author_email, likes, downvo
   root.appendChild(newH1);
 
   var newImg = document.createElement("img");
-  newImg.setAttribute("src", image);
+  if (/\.(jpeg|jpg|png|gif)\b/i.test(image)) {
+    newImg.setAttribute("src", image);
+  } else {
+    newImg.setAttribute("src", "/img/corrupted-image.png");
+  }
   newImg.setAttribute("id", "newImg");
   root.appendChild(newImg);
 
@@ -238,7 +242,7 @@ function like() {
       },
       body: JSON.stringify({
         do: 'like',
-        prov_data: [localStorage.getItem("logged"), data.author_email, data.header]
+        prov_data: [localStorage.getItem("logged"), data.author_email, data.id, data.add_info.dup]
       }) 
     })
   
@@ -280,7 +284,7 @@ function downvote() {
       },
       body: JSON.stringify({
         do: 'downvote',
-        prov_data: [localStorage.getItem("logged"), data.author_email, data.header]
+        prov_data: [localStorage.getItem("logged"), data.author_email, data.id, data.add_info.dup]
       }) 
     })
 
