@@ -19,8 +19,8 @@ function getData() {
     var mainContent = document.getElementById("mainContent");
     var pinnedContent = document.getElementById("pinnedContent");
     
-    mainContent.innerHTML = '<h1 class="h1" id="articlesAll">Статьи от сообщества</h1>';
-    pinnedContent.innerHTML = '<h1 class="h1" id="pinnedArticles">Закрепленные статьи</h1>';
+    mainContent.innerHTML = '<h1 id="articlesAll">Статьи от сообщества</h1>';
+    pinnedContent.innerHTML = '<h1 id="pinnedArticles">Закрепленные статьи</h1>';
 
     document.getElementById("pageP").innerHTML = "- " + sessionStorage.getItem("pageNum") + " -";
 
@@ -162,13 +162,15 @@ var btnSwtF = document.getElementById("buttonSwitchF");
 var btnSwtB = document.getElementById("buttonSwitchB");
 btnSwtB.style.display = "none";
 
-if (window.screen.width <= 500) {
-  btnSwtF.style.display = "flex";
-  document.getElementById("top-left-btn").innerHTML = '<i class="material-icons">more_horiz</i>';
-} else {
-  btnSwtF.style.display = "none";
-  btnSwtB.style.display = "none";
-  document.getElementById("top-left-btn").innerHTML = 'для организаций';
+function adjustSize() {
+  if (window.innerWidth <= 750) {
+    btnSwtF.style.display = "flex";
+    document.getElementById("top-left-btn").innerHTML = '<i class="material-icons">more_horiz</i>';
+  } else {
+    btnSwtF.style.display = "none";
+    btnSwtB.style.display = "none";
+    document.getElementById("top-left-btn").innerHTML = 'для организаций';
+  }
 }
 
 function showNavBox() {
@@ -188,6 +190,9 @@ function hideNavBox() {
   document.getElementById("sortBox").style.display = "flex";
   document.getElementById("bottomControls").style.display = "flex";
 }
+
+adjustSize();
+window.addEventListener("resize", adjustSize);
 
 
 

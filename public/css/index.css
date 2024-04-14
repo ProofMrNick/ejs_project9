@@ -116,7 +116,6 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 5%;
   width: 100%;
 }
 
@@ -125,6 +124,7 @@ header {
   font-weight: 900;
   font-size: 25px;
   cursor: auto;
+  margin: 0 0 4% 0;
 }
 
 #mainContent {
@@ -146,10 +146,6 @@ header {
   position: sticky;
   top: 130px;
   z-index: 99;
-}
-
-#articlesAll {
-  margin: 0 0 4% 0;
 }
 
 
@@ -176,7 +172,6 @@ header {
 }
 
 .img {
-  heigth: 148px;
   width: 223px;
   margin: 0;
   padding: 0;
@@ -443,7 +438,7 @@ footer {
 }
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 750px) {
 
   #main {
     flex-direction: column-reverse;
@@ -607,5 +602,70 @@ footer {
     aspect-ratio: auto;
     width: 95%;
   }
+  
+}
+
+
+@media only screen and (min-width: 551px) and (max-width: 750px) {
+
+  header { height: 60%; }
+
+  #main-logo { width: 40%; }
+
+    #top-content > div { padding: 4% 0 1% 0; }
+
+  #top { height: 70%; }
+
+  #navBox, #sortBox { 
+    width: 50%;
+    padding: 3% 0.5% 3% 0.5%;
+  }
+
+  #nav { display: inline-flex; gap: 7.5%; }
+
+    #sortBox > select { padding: 1.5% 0 1.5% 0; }
+
+  #pinnedArticles, #articlesAll { font-size: 25px; }
+
+  .divOut { margin-bottom: 3%; }
+
+  .img { width: 150px !important; }
+  
+}
+
+
+@media only screen and (min-width: 751px) and (max-width: 1050px) {
+
+    #top-content > div > button { font-size: 12px }
+    #top-content > div > button > i { font-size: 23px; }
+
+  header { height: 60% }
+
+  .wel-words { font-size: 450%; }
+
+  #navBox, #sortBox { 
+    width: 98%;
+    padding: 8% 4% 8% 4%;
+    display: flex !important;
+  }
+
+    #navBox > h1, #sortBox > h1 { 
+      font-size: 16px;
+      text-align: center;
+    }
+
+  select, option { font-size: 15px; }
+
+    #navBox > p { font-size: 15px; }
+
+    #navBox > button { font-size: 13px; }
+
+  .h2 { font-size: 14px; }
+
+  .h1 { font-size: 14px; }
+
+  .p { font-size: 13px; }
+
+  .img { width: 170px; }
   
 }
