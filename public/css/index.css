@@ -199,7 +199,6 @@ header {
   margin: 0;
   font-weight: 700;
   font-size: 18px;
-  text-decoration: none;
 }
 
 .p {
@@ -576,8 +575,7 @@ footer {
   }
 
   #dv1 {
-    margin-left: 5%;
-    width: 95%;
+    margin-left: 20%;
   }
 
   #dv1, .dv2, .dv3, .dv4 {
@@ -587,7 +585,6 @@ footer {
 
   .dv2 {
     margin-top: 3%;
-    width: 100%;
   }
 
   .dv2 > h2 {

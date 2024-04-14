@@ -5,7 +5,7 @@ var data = JSON.parse(document.getElementById("gen").innerHTML);
 
 if (data == "new act" && localStorage.getItem("logged") == null) {
   document.location.href = "/login";
-} else if (data !== "new act" && (localStorage.getItem("logged") !== data.author_email || localStorage.getItem("logged") == null)) {
+} else if (data !== "new act" && localStorage.getItem("logged") !== data.author_email) {
   document.location.href = "/login";
 }
 
@@ -179,21 +179,6 @@ function collect() {
     type.push(typeObj[selElem[i].value]);
     content.push(taElem[i].value.trim());
   }
-  
-
-  var splt = header.value.trim().toLowerCase().split("");
-  var identificator = header.value.trim();
-  var alph = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm0123456789";
-  for (var i = 0; i < splt.length; i++) {
-    if (!alph.split("")
-        .includes(splt[i])) {
-        identificator = identificator.replace(splt[i], "-")
-          .replace("--", "-");
-    }
-  }
-
-  identificator = identificator.toLowerCase();
-  
 
   var dataArray = [today, fullToday, image.value.trim(), header.value.trim(), type, content]
   dataArray.unshift(
@@ -209,7 +194,6 @@ function collect() {
     type: dataArray[5],
     content: dataArray[6],
     author_email: localStorage.getItem("logged"),
-    id: identificator,
     pinned: false,
     stats: {
       views: [],
@@ -218,9 +202,7 @@ function collect() {
       downvotes: [],
       ratio: 0
     },
-    add_info: {
-      dup: 0
-    },
+    add_info: [],
     action_hidden: ((privacySett == "pub") ? false : true)
   }
 
@@ -323,8 +305,7 @@ function updateAction() {
       },
       body: JSON.stringify({
         do: 'update_action',
-        old_id: data.id,
-        old_dup: data.add_info.dup,
+        old_header: data.header,
         prov_data: upd_data
       }) 
     })

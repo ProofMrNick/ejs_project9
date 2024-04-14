@@ -32,24 +32,24 @@ function getData() {
       var divInn = document.createElement("div");
       var img = document.createElement("img");
       var h1 = document.createElement("h1");
-      var h2 = document.createElement("a");
+      var h2 = document.createElement("h2");
       var p = document.createElement("p");
 
       divOut.classList.add("divOut");
       divOut.setAttribute("id", sessionStorage.getItem("pageNum") + "_" + i);
-      divOut.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].id + "/" + res[i].add_info.dup);
+      divOut.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].header);
 
       divInn.classList.add("divInn");
       divInn.setAttribute("id", sessionStorage.getItem("pageNum") + "_" + i);
-      divInn.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].id + "/" + res[i].add_info.dup);
+      divInn.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].header);
 
       img.classList.add("img");
       img.setAttribute("id", sessionStorage.getItem("pageNum") + "_" + i);
-      img.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].id + "/" + res[i].add_info.dup);
+      img.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].header);
 
       h1.classList.add("h1");
       h1.setAttribute("id", sessionStorage.getItem("pageNum") + "_" + i);
-      h1.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].id + "/" + res[i].add_info.dup);
+      h1.setAttribute("data-header", "/" + res[i].author_email + "/" + res[i].header);
 
       h2.classList.add("h2");
       p.classList.add("p");
@@ -61,10 +61,7 @@ function getData() {
       }
       img.alt = "Изображение повреждено или недоступно.";
       h1.innerHTML = res[i].header;
-      let string = h1.innerHTML;
-      h1.innerHTML = (string.split("").length < 100) ? string : string.split("").slice(0, 100).join("") + "...";
       h2.innerHTML = res[i].author_name;
-      h2.href = "/" + res[i].author_email;
       p.innerHTML = "Опубликовано: " + res[i].today;
 
       divInn.append(h2, h1, p);
@@ -162,7 +159,7 @@ var btnSwtF = document.getElementById("buttonSwitchF");
 var btnSwtB = document.getElementById("buttonSwitchB");
 btnSwtB.style.display = "none";
 
-if (window.screen.width <= 500) {
+if (window.screen.availWidth <= 500) {
   btnSwtF.style.display = "flex";
   document.getElementById("top-left-btn").innerHTML = '<i class="material-icons">more_horiz</i>';
 } else {
