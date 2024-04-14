@@ -2,6 +2,8 @@
 var data = JSON.parse(document.getElementById("gen").innerHTML);
 var foo = document.getElementById("foo");
 
+var screen = window.innerWidth;
+
 if (localStorage.getItem("logged") !== data.email) {
   loadAccountView(data);
 } else {
@@ -10,12 +12,13 @@ if (localStorage.getItem("logged") !== data.email) {
 
 
 function loadAccountView(details) {
-document.getElementById("main").removeChild(document.getElementById("controls"));
+  document.getElementById("main")
+    .removeChild(document.getElementById("controls"));
   var header = document.getElementById("header");
   header.innerHTML = details.name.split(" ").join(" ");
 
   var paragraph = document.getElementById("paragraph");
-  paragraph.innerHTML = "Проекты";
+  paragraph.innerHTML = "Статьи";
 
   var btn1 = document.createElement("button");
   var btn2 = document.createElement("button");
@@ -46,18 +49,10 @@ document.getElementById("main").removeChild(document.getElementById("controls"))
   
   document.body.removeChild(document.getElementById("outerMessage"));
   document.body.removeChild(document.getElementById("outerMessage2"));
-  document.body.removeChild(document.getElementById("hov1"));
-  document.body.removeChild(document.getElementById("hov2"));
   document.getElementById("head").removeChild(document
 .getElementById("toWorkshop"));
   document.getElementById("head").removeChild(document
 .getElementById("logOut"));
-  document.querySelectorAll("tr")[0].removeChild(document
-  .querySelectorAll("th")[0]);
-  document.querySelectorAll("th")[0].innerHTML = "Предпросмотр"
-  document.querySelectorAll("tr")[0].removeChild(document
-.querySelectorAll("th")[3]);
-
   
   document.querySelectorAll(".dv4")[0]
 .removeChild(document.querySelectorAll(".pToWorkshop")[0]);
@@ -72,42 +67,39 @@ document.getElementById("main").removeChild(document.getElementById("controls"))
   toLogInP.innerHTML = "на страницу входа и регистрации";
   document.querySelectorAll(".dv4")[3].appendChild(toLogInP);
   
+  var content = document.getElementById("content");
 
-  var table = document.getElementById("table");
-  table.style.width = "75%";
   for (i = 0; i < details.actions.length; i++) {
-    if (details.actions[i].action_hidden == false) {
-      
-      var tr = document.createElement("tr");
-      var tdNu = document.createElement("td");
-      var tdNa = document.createElement("td");
-      var tdDa = document.createElement("td");
-      var imgNu = document.createElement("img");
-      
-      imgNu.src = details.actions[i].image;
-      imgNu.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].header);
-      imgNu.setAttribute("id", "imgNu");
-      imgNu.setAttribute("alt", "Изображение повреждено или недоступно");
-      tdNu.fontSize = "20px";
-      tdNu.appendChild(imgNu);
-      
-      tdNa.innerHTML = details.actions[i].header;
-      tdDa.innerHTML = details.actions[i].today;
-
-      tdNu.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].header);
-      tdNa.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].header);
-      tdDa.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].header);
+    if (details.actions[i].action_hidden) { continue }
+    var actionDivView = document.createElement("div");
+    actionDivView.classList.add("actionDivView");
+    actionDivView.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].id + "/" + details.actions[i].add_info.dup);
+    actionDivView.innerHTML = 
+      `<div class="innerDiv"> \
+        <h2 class="h2">Опубликовано: ${details.actions[i].today}</h2> \
+        <h1 class="h1">${details.actions[i].header}</h1> \
+        <div class="statsDiv"> \
+          <p class="p"><i class='material-symbols-outlined' style='margin-right:4px'>favorite</i>${(details.actions[i].stats.likes.length > 0) ? details.actions[i].stats.likes.length : ""}</p> \
+          <p class="p"><i class='material-symbols-outlined' style='margin-right:4px'>heart_broken</i>${(details.actions[i].stats.downvotes.length > 0) ? details.actions[i].stats.downvotes.length : ""}</p> \
+        </div> \
+      </div> \
+      <img class="actionImg" src=${details.actions[i].image}>`
+    content.appendChild(actionDivView);
+  }
   
-      tr.appendChild(tdNu);
-      tr.appendChild(tdNa);
-      tr.appendChild(tdDa);
+  for (let act of document.querySelectorAll(".actionDivView")) {
+    act.style.width = (screen <= 800) ? "95%" : "77%";
+  }
 
-      tr.classList.add("trHover");
+  for (let img of document.querySelectorAll(".actionImg")) {
+    img.style.width = "23%";
+  }
   
-      table.appendChild(tr);
-    }
-    
-  }  
+  content.style.width = (screen <= 800) ? "95%" : "75%";
+  document.querySelectorAll(".h1").forEach((h) => {
+    let string = h.innerHTML;
+    h.innerHTML = (string.split("").length < 100) ? string : string.split("").slice(0, 100).join("") + "...";
+  });
 }
 
 
@@ -116,38 +108,31 @@ function loadAccountEdit(details) {
   header.innerHTML = "Привет, <span id='gold'>" + details.name.split(" ")[0] + "</span>!";
 
   var paragraph = document.getElementById("paragraph");
-  paragraph.innerHTML = "Ваши проекты";
+  paragraph.innerHTML = "Ваши статьи";
 
-  var table = document.getElementById("table");
+  var content = document.getElementById("content");
+  
   for (i = 0; i < details.actions.length; i++) {
-    var tr = document.createElement("tr");
-    var choice = document.createElement("td");
-    var tdNu = document.createElement("td");
-    var tdNa = document.createElement("td");
-    var tdDa = document.createElement("td");
-    var tdHi = document.createElement("td");
-
-    choice.setAttribute("class", "choice");
-    choice.setAttribute("onmouseover", "choiceTitleOn()");
-    choice.setAttribute("onmouseout", "choiceTitleOff()");
-    tdHi.setAttribute("onmouseover", "statusTitleOn()");
-    tdHi.setAttribute("onmouseout", "statusTitleOff()");
-
-    choice.innerHTML = "<input name='inputChoice' type='radio' class='inputChoice' onclick='boxSelected()' ondblclick='unCheck()'>";
-    tdNu.innerHTML = i + 1 + "";
-    tdNa.innerHTML = details.actions[i].title;
-    tdDa.innerHTML = details.actions[i].fullToday;
-    tdHi.innerHTML = (details.actions[i].action_hidden) ? "Частный" : "Публичный";
-
-    tr.appendChild(choice);
-    tr.appendChild(tdNu);
-    tr.appendChild(tdNa);
-    tr.appendChild(tdDa);
-    tr.appendChild(tdHi);
-
-    tr.classList.remove("trHover");
-    
-    table.appendChild(tr);
+    var actionDiv = document.createElement("div");
+    actionDiv.classList.add("actionDiv");
+    actionDiv.setAttribute("data-header", "/" + details.email + "/" + details.actions[i].id + "/" + details.actions[i].add_info.dup);
+    actionDiv.innerHTML = 
+    `<div class="innerDiv"> \
+      <div class="topDiv"> \
+        <h2 class="h2">${details.actions[i].today} (в ${ details.actions[i].fullToday.split(" ")[1]})</h2> \
+        <div class="infoDiv"> \
+          <p class="bigP"><i class='material-symbols-outlined' style='margin-right:4px'>${(details.actions[i].action_hidden) ? "lock</i>Частная" : "lock_open</i>Публичная"}</p> \
+          <p class="bigP"><i class='material-symbols-outlined' style='margin-right:4px'>${(details.actions[i].pinned) ? "keep</i>Закреплена" : "keep_off</i>Не закреплена"}</p> \
+        </div> \
+      </div> \
+      <h1 class="h1">${details.actions[i].header}</h1> \
+      <div class="statsDiv"> \
+        <p class="p"><i class='material-symbols-outlined' style='margin-right:4px'>favorite</i>${(details.actions[i].stats.likes.length > 0) ? details.actions[i].stats.likes.length : ""}</p> \
+        <p class="p"><i class='material-symbols-outlined' style='margin-right:4px'>heart_broken</i>${(details.actions[i].stats.downvotes.length > 0) ? details.actions[i].stats.downvotes.length : ""}</p> \
+      </div> \
+    </div> \
+    <img class="actionImg" src=${details.actions[i].image}>`;
+    content.appendChild(actionDiv);
   }
 
   document.getElementById("gold").addEventListener("click", () => {
@@ -160,32 +145,48 @@ function loadAccountEdit(details) {
     document.getElementById("newLname").value = details.name.split(" ")
 .slice(1).join(" ");
   });
+
+  document.querySelectorAll(".h1").forEach((h) => {
+    let string = h.innerHTML;
+    h.innerHTML = (string.split("").length < 100) ? string : string.split("").slice(0, 100).join("") + "...";
+  });
 }
 
 function loadAccountMOD(details) {
   // code for MOD
 }
 
-window.onclick = e => {
-  if (e.target.hasAttribute("data-header")) {
-    location.href = e.target.getAttribute("data-header");
-  }
-} 
+
+for (let img of document.querySelectorAll(".actionImg")) {
+  if (!/\.(jpeg|jpg|png|gif)\b/i.test(img.src)) {
+    img.src = "/img/corrupted-image.png";
+  } 
+}
 
 
-var openArticle = document.getElementById("openArticle");
-var changeStatus = document.getElementById("changeStatus");
-var deleteArticle = document.getElementById("deleteArticle");
-
-function unCheck() {
-  for (var j = 0; j < document.querySelectorAll(".inputChoice").length; j++) {
-    if (document.querySelectorAll(".inputChoice")[j].checked) {
-      document.querySelectorAll(".inputChoice")[j].checked = false;
+var buttonsShown = false;
+function checkStatus() {
+  if (localStorage.getItem("logged") == data.email) {
+    if (!["", undefined, null].includes(link) &&
+        !["", undefined, null].includes(el)) {
+      document.getElementById("controls").style.opacity = "1";
+      buttonsShown = true;
+      if (screen <= 800) {
+        document.getElementById("controls").innerHTML = 
+        `<button id="openArticle" onclick="openLink()"><i  class="material-symbols-outlined">open_in_browser</i>открыть</button> \
+            <button id="changeStatus" onclick="updateLink()"><i  class="material-symbols-outlined">edit</i>редактировать</button> \
+            <button id="deleteArticle" onclick="deleteLink()"><i  class="material-symbols-outlined">delete</i>удалить</button>`;
+      } else {
+        document.getElementById("controls").innerHTML = 
+        `<button id="openArticle" onclick="openLink()"><i  class="material-symbols-outlined">open_in_browser</i><i id="hidden" class="material-symbols-outlined">add_circle</i>открыть статью</button> \
+            <button id="changeStatus" onclick="updateLink()"><i  class="material-symbols-outlined">edit</i><i id="hidden" class="material-symbols-outlined">add_circle</i>редактировать статью</button> \
+            <button id="deleteArticle" onclick="deleteLink()"><i  class="material-symbols-outlined">delete</i><i id="hidden" class="material-symbols-outlined">add_circle</i>удалить статью</button>`;
+      }
+    } else {
+      buttonsShown = false;
       document.getElementById("controls").style.opacity = "0.63";
-      document.getElementById("temp").style.display = "block";
-      openArticle.style.display = "none";
-      changeStatus.style.display = "none";
-      deleteArticle.style.display = "none";
+      document.getElementById("controls").innerHTML = 
+      `<p id="temp">для начала работы выберите статью</p>`;
     }
   }
 }
@@ -222,47 +223,44 @@ function toMain() {
   document.location.href = "/";
 }
 
-
-function boxSelected() {  
-  localStorage.removeItem("id");
-  document.getElementById("controls").style.opacity = "1";
-  document.getElementById("temp").style.display = "none";
-  openArticle.style.display = "flex";
-  changeStatus.style.display = "flex";
-  deleteArticle.style.display = "flex";
+function select(elem) {
+  if (el == elem) {
+    close();
+  } else {
+    document.querySelectorAll(".actionDiv").forEach((e) => {
+      e.classList.remove("container-selected");
+    });
+    link = elem.getAttribute("data-header");
+    el = elem;
+    elem.classList.add("container-selected");
+  }
+  checkStatus();
 }
 
-
-function openThisArticle() {
-    for (var j = 0; j < document.querySelectorAll(".inputChoice").length; j++) {
-      if (document.querySelectorAll(".inputChoice")[j].checked) {
-        unCheck();
-        document.location.href = "/" + data.email + "/" + data.actions[j].header;
-      }
+function close() {
+  if (el !== "") {
+    document.querySelectorAll(".actionDiv").forEach((e) => {
+      e.classList.remove("container-selected");
+    });
+    link = "";
+    el.classList.remove("container-selected");
+    el = "";
   }
+  checkStatus();
 }
 
-
-function updateThisArticle() {
-  for (var j = 0; j < document.querySelectorAll(".inputChoice").length; j++) {
-      if (document.querySelectorAll(".inputChoice")[j].checked) {
-        unCheck();
-        document.location.href = "/" + data.email + "/" + data.actions[j].header + "/workshop";
-      }
-  }
+function openLink(element) {
+  link = (link == "") ? element.getAttribute("data-header") : link;
+  document.location.href = link;
 }
 
+function updateLink() {
+  document.location.href = link + "/workshop";
+}
 
-function deleteThisArticle() {
-  for (var j = 0; j < document.querySelectorAll(".inputChoice").length; j++) {
-      if (document.querySelectorAll(".inputChoice")[j].checked) {
-        var i = Number(j)
-      }
-  }
+function deleteLink() {
+  if (confirm("Вы действительно хотите удалить статью? Это действие необратимо.")) {
 
-  if (confirm("Вы действительно хотите удалить статью «" + data.actions[i].title + "»? Это действие необратимо.")) {
-
-  
     fetch("/api", {
     method: "POST", 
     headers: {
@@ -270,7 +268,8 @@ function deleteThisArticle() {
     },
     body: JSON.stringify({
       email_to_change: data.email,
-      what_to_change: data.actions[i].header,
+      id_to_change: link.split("/")[2],
+      dup_to_change: link.split("/")[3],
       do: "delete"
     }) 
   })
@@ -286,9 +285,40 @@ function deleteThisArticle() {
         alert("Возникла ошибка при удалении. Повторите попытку позже.");
       }
     })
-
+    
   }
+}
+
+function searchParent(element) {
+  while (element.parentElement) {
+    element = element.parentElement;
+    if (element.getAttribute("data-header") !== null) {
+      return element
+    }    
+  }
+  return false
+}
+
+var link = "";
+var el = "";
+
+window.onclick = e => {
+  if (!e.target.hasAttribute("data-header")) {
+    var call = searchParent(e.target);
+    (call == false) ? close() : null
+  }  
 } 
+
+document.querySelectorAll(".actionDiv").forEach((elem) => {
+  elem.setAttribute("onclick", "select(this)");
+  elem.setAttribute("ondblclick", "openLink(this)");
+});
+
+document.querySelectorAll(".actionDivView").forEach((elem) => {
+  elem.addEventListener("click", () => {
+    document.location.href = elem.getAttribute("data-header");
+  });
+});
 
 
 function cancelNewFL() {
@@ -332,59 +362,65 @@ function updateUserName() {
 }
 
 
-function choiceTitleOn() {
-  var hov = document.getElementById("hov1");
-  hov.style.display = "block";
-  hov.style.pointerEvents = "none";
-  hov.style.position = "fixed";
 
-  document.addEventListener('mousemove', function(ev) {
-    hov.style.transform = 'translateY(' + (ev.clientY - 10) + 'px)';
-    hov.style.transform += 'translateX(' + (ev.clientX + 40) + 'px)'; 
-  }, false);
+// Experimenting with responsive design 
+
+function adjustSize() {
+  screen = window.innerWidth;
+  if (screen <= 800) {
+    document.getElementById("head-image").src = "/img/box-full-dark-font.png";
+    if (localStorage.getItem("logged") == data.email) {
+      document.getElementById("controls").style.width = "96%";
+      document.getElementById("logOut").innerHTML = 
+        `<i class="material-symbols-outlined">logout</i>`;
+
+      if (buttonsShown) {
+        document.getElementById("controls").style.opacity = "1";
+        document.getElementById("controls").innerHTML = 
+        `<button id="openArticle" onclick="openLink()"><i  class="material-symbols-outlined">open_in_browser</i>открыть</button> \
+            <button id="changeStatus" onclick="updateLink()"><i  class="material-symbols-outlined">edit</i>редактировать</button> \
+            <button id="deleteArticle" onclick="deleteLink()"><i  class="material-symbols-outlined">delete</i>удалить</button>`;
+      } else {
+        document.getElementById("controls").style.opacity = "0.63";
+        document.getElementById("controls").innerHTML = 
+        `<p id="temp">для начала работы выберите статью</p>`;
+      }
+    }
+
+    
+    if ([null, undefined].includes(localStorage.getItem("logged"))) {
+      document.getElementById("btn2").innerHTML = '<i class="material-symbols-outlined">more_horiz</i>';
+    }
+  } else {
+    document.getElementById("head-image").src = "/img/logo-white.svg";
+    if (localStorage.getItem("logged") == data.email) {
+      document.getElementById("controls").style.width = "70%";
+      document.getElementById("logOut").innerHTML = 
+        `выйти из аккаунта<i id="hidden" class="material-symbols-outlined">add_circle</i><i class="material-symbols-outlined">logout</i>`;
+
+      if (buttonsShown) {
+        document.getElementById("controls").style.opacity = "1";
+        document.getElementById("controls").innerHTML = 
+        `<button id="openArticle" onclick="openLink()"><i  class="material-symbols-outlined">open_in_browser</i><i id="hidden" class="material-symbols-outlined">add_circle</i>открыть статью</button> \
+            <button id="changeStatus" onclick="updateLink()"><i  class="material-symbols-outlined">edit</i><i id="hidden" class="material-symbols-outlined">add_circle</i>редактировать статью</button> \
+            <button id="deleteArticle" onclick="deleteLink()"><i  class="material-symbols-outlined">delete</i><i id="hidden" class="material-symbols-outlined">add_circle</i>удалить статью</button>`;
+      } else {
+        document.getElementById("controls").style.opacity = "0.63";
+        document.getElementById("controls").innerHTML = 
+        `<p id="temp">для начала работы выберите статью</p>`;
+      }
+    }
+
+
+    if ([null, undefined].includes(localStorage.getItem("logged"))) {
+      document.getElementById("btn2").innerHTML = 'для организаций';
+    }
+  }
 }
 
-function choiceTitleOff() {
-  var hov = document.getElementById("hov1");
-  hov.style.display = "none";
-}
+adjustSize();
+window.addEventListener("resize", adjustSize);
 
-
-function statusTitleOn() {
-  var hov = document.getElementById("hov2");
-  hov.style.display = "block";
-  hov.style.pointerEvents = "none";
-  hov.style.position = "fixed";
-
-  document.addEventListener('mousemove', function(ev) {
-    hov.style.transform = 'translateY(' + (ev.clientY - 10) + 'px)';
-    hov.style.transform += 'translateX(' + (ev.clientX - 460) + 'px)'; 
-  }, false);
-}
-
-
-function statusTitleOff() {
-  var hov = document.getElementById("hov2");
-  hov.style.display = "none";
-}
-
-
-function supOn() {
-  var hov = document.getElementById("hov3");
-  hov.style.display = "block";
-  hov.style.pointerEvents = "none";
-  hov.style.position = "fixed";
-
-  document.addEventListener('mousemove', function(ev) {
-    hov.style.transform = 'translateY(' + (ev.clientY - 100) + 'px)';
-    hov.style.transform += 'translateX(' + (ev.clientX - 460) + 'px)'; 
-  }, false);
-}
-
-function supOff() {
-  var hov = document.getElementById("hov3");
-  hov.style.display = "none";
-}
 
 
 

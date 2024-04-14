@@ -52,7 +52,9 @@ function harvestData() {
     return object
   }
 
-  if (name !== "" && email !== "" && password !== "") {
+  var emailMatch = /\S+@\S+\.\S+/.test(email);
+  
+  if (name !== "" && email !== "" && emailMatch && password !== "") {
     const object_to_send = convertForSending(name, email, password);
 
     fetch("/api", {

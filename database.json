@@ -31,16 +31,21 @@
                     "head h1"
                 ],
                 "author_email": "wer@wer.com",
+                "id": "business",
                 "pinned": false,
                 "stats": {
                     "views": [],
-                    "likes": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
                     "comms": [],
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
-                "action_hidden": true
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
             },
             {
                 "title": "Новая статья",
@@ -67,6 +72,7 @@
                     ""
                 ],
                 "author_email": "wer@wer.com",
+                "id": "test-2",
                 "pinned": false,
                 "stats": {
                     "views": [],
@@ -75,7 +81,9 @@
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
+                "add_info": {
+                    "dup": 0
+                },
                 "action_hidden": false
             },
             {
@@ -97,6 +105,7 @@
                     " "
                 ],
                 "author_email": "wer@wer.com",
+                "id": "проект-3",
                 "pinned": false,
                 "stats": {
                     "views": [],
@@ -108,7 +117,9 @@
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
+                "add_info": {
+                    "dup": 0
+                },
                 "action_hidden": false
             },
             {
@@ -154,6 +165,7 @@
                     ""
                 ],
                 "author_email": "wer@wer.com",
+                "id": "как-спорт-влияет-на-мозг",
                 "pinned": false,
                 "stats": {
                     "views": [],
@@ -164,7 +176,9 @@
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
+                "add_info": {
+                    "dup": 0
+                },
                 "action_hidden": false
             },
             {
@@ -196,6 +210,7 @@
                     ""
                 ],
                 "author_email": "wer@wer.com",
+                "id": "котик-спит",
                 "pinned": false,
                 "stats": {
                     "views": [],
@@ -206,7 +221,9 @@
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
+                "add_info": {
+                    "dup": 0
+                },
                 "action_hidden": false
             }
         ]
@@ -266,21 +283,74 @@
                     "Вы можете посещать личные кабинеты других пользователей платформы, читать их статьи (если к статьям открыт доступ, конечно), оценивать их и делиться ими. В будущем будет также добавлена возможность комментирования статей.",
                     "Спасибо за внимание, оставайтесь на связи и следите за обновлениями!",
                     "―",
-                    "конструктор версии 9.1"
+                    "конструктор версии 9.2"
                 ],
                 "author_email": "ewq@ewq.ewq",
+                "id": "что-такое-конструктор-или-как-заявить-о-себе-миру-журналистики",
                 "pinned": true,
                 "stats": {
                     "views": [],
                     "likes": [
-                        "ewq@ewq.ewq",
-                        "wer@wer.com"
+                        "wer@wer.com",
+                        "oleg@mailservice.ru",
+                        "ewq@ewq.ewq"
                     ],
                     "comms": [],
                     "downvotes": [],
                     "ratio": 0
                 },
-                "add_info": [],
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            }
+        ]
+    },
+    "oleg@mailservice.ru": {
+        "name": "Олег Баранов",
+        "email": "oleg@mailservice.ru",
+        "password": "12346",
+        "role": "user",
+        "add_info": [],
+        "actions": [
+            {
+                "title": "Ель",
+                "today": "30.03.2024",
+                "fullToday": "30.03.2024 15:17:02",
+                "image": "https://gas-kvas.com/grafic/uploads/posts/2023-10/1696520365_gas-kvas-com-p-kartinki-yel-13.jpg",
+                "header": "Особенности ели",
+                "type": [
+                    "h2",
+                    "p",
+                    "img",
+                    "h4",
+                    "p"
+                ],
+                "content": [
+                    "Понятие ели",
+                    "Ель относится к роду хвойных вечнозелёных деревьев семейства Сосновые. Около 40 видов вечнозелёных высоких деревьев с красивой кроной, распространённых в умеренных и холодных районах Северного полушария.",
+                    "https://avatars.mds.yandex.net/get-entity_search/479903/857730727/orig",
+                    "Шишка ели.",
+                    ""
+                ],
+                "author_email": "oleg@mailservice.ru",
+                "id": "особенности-ели",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "oleg@mailservice.ru",
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [
+                        "ewq@ewq.ewq"
+                    ],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
                 "action_hidden": false
             }
         ]
