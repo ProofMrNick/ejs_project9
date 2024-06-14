@@ -225,6 +225,45 @@
                     "dup": 0
                 },
                 "action_hidden": false
+            },
+            {
+                "title": "123",
+                "today": "20.04.2024",
+                "fullToday": "20.04.2024 17:09:49",
+                "image": "rffrftgt",
+                "header": "ern3ionrinbrnknvkrfv",
+                "type": [
+                    "img",
+                    "h4",
+                    "h4",
+                    "img",
+                    "h4",
+                    "p"
+                ],
+                "content": [
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG/825px-Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG/825px-Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "As expected with a Community Day event, Bellsprout will spawn in huge numbers in Pokémon Go with a high chance for it to appear shiny. There are also several other bonuses and perks, which we’ve listed out below."
+                ],
+                "author_email": "wer@wer.com",
+                "id": "ern3ionrinbrnknvkrfv",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": true
             }
         ]
     },
@@ -291,9 +330,9 @@
                 "stats": {
                     "views": [],
                     "likes": [
-                        "wer@wer.com",
                         "oleg@mailservice.ru",
-                        "ewq@ewq.ewq"
+                        "ewq@ewq.ewq",
+                        "wer@wer.com"
                     ],
                     "comms": [],
                     "downvotes": [],

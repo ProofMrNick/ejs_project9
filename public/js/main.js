@@ -1,26 +1,80 @@
 
+var loader = document.querySelectorAll(".loader");
+var loaderElems = document.querySelectorAll(".loader-elem");
+var loadingInterval = 
+setInterval(() => {
+  for (let i = 0; i < loaderElems.length; i++) {
+    loaderElems[i].classList.remove("loader-elem-animate");
+  }
+
+  setTimeout(() => {
+    for (let i = 0; i < loaderElems.length; i++) {
+      loaderElems[i].classList.add("loader-elem-animate");
+    }
+  }, 20);
+}, 4000);
+
+var partialLoader = 
+  `<div class="div-loader">
+    <ul class="loader">
+      <li class="loader-elem loader-elem-animate"></li>
+      <li class="loader-elem loader-elem-animate"></li>
+      <li class="loader-elem loader-elem-animate"></li>
+    </ul>
+    <h3>Загрузка</h3>
+  </div>`
+
+var partialLightLoader = 
+  `<div class="div-loader">
+    <ul class="loader">
+      <li class="loader-elem loader-elem-animate"></li>
+      <li class="loader-elem loader-elem-animate"></li>
+      <li class="loader-elem loader-elem-animate"></li>
+    </ul>
+  </div>`
+
+var noPinnedArticles = document.createElement("h5");
+noPinnedArticles.innerHTML = 
+  `Статей, закрепленных модераторами, пока нет.`;
+
+var noMainArticles = document.createElement("h5");
+noMainArticles.innerHTML = 
+  `Статей от сообщества пока нет.`;
+
+var sliceFurther;
+
+
+
 function getData() {
+  
+  mainContent.innerHTML = 
+    `<h1 id="articlesAll">Статьи от сообщества</h1>
+     ${partialLoader}`;
+  pinnedContent.innerHTML = 
+    `<h1 id="pinnedArticles">Закрепленные статьи</h1>
+     ${partialLoader}`;   
+  
   fetch("/api", {
-  method: "POST", 
-  headers: {
-    "Content-Type": "application/json" 
-  },
-  body: JSON.stringify({
-    do: "fetch_data",
-    prov_data: sessionStorage.getItem("pageNum")
-  }) 
-})
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json" 
+    },
+    body: JSON.stringify({
+      do: "fetch_data",
+      prov_data: sessionStorage.getItem("pageNum")
+    }) 
+  })
 
   .then(function(res) {
     return res.json();
   })
 
-  .then(function(res) {
-    var mainContent = document.getElementById("mainContent");
-    var pinnedContent = document.getElementById("pinnedContent");
+  .then(function(result) {
+    sliceFurther = result[0];
+    var res = result[1];
     
-    mainContent.innerHTML = '<h1 id="articlesAll">Статьи от сообщества</h1>';
-    pinnedContent.innerHTML = '<h1 id="pinnedArticles">Закрепленные статьи</h1>';
+    var mainContent = document.getElementById("mainContent");
+    var pinnedContent = document.getElementById("pinnedContent");      
 
     document.getElementById("pageP").innerHTML = "- " + sessionStorage.getItem("pageNum") + " -";
 
@@ -72,7 +126,24 @@ function getData() {
 
       (res[i].pinned == true) ? 
         pinnedContent.append(divOut) : 
-        mainContent.append(divOut);      
+        mainContent.append(divOut);
+    }    
+  })
+  
+  .then(function() {
+    var divLoaders = document.querySelectorAll(".div-loader");
+    divLoaders.forEach((load) => {
+      clearInterval(loadingInterval);
+      load.parentElement.removeChild(load);
+    });
+  })
+
+  .then (function() {
+    if (pinnedContent.childNodes.length <= 2) {
+      pinnedContent.appendChild(noPinnedArticles);
+    }
+    if (mainContent.childNodes.length <= 2) {
+      mainContent.appendChild(noMainArticles);
     }
   });
 }
@@ -115,9 +186,14 @@ var fd = document.getElementById("fd");
 var bk = document.getElementById("bk");
 
 function fdUpdate() {
-  if (true) {
+  if (sliceFurther) {
     fd.classList.remove("inactive");
     fd.classList.add("active");
+    fd.setAttribute("onclick", "requestArticlesFd()");
+  } else {
+    fd.classList.remove("active");
+    fd.classList.add("inactive");
+    fd.removeAttribute("onclick", "requestArticlesFd()");
   }
 }
 
@@ -134,8 +210,10 @@ function bkUpdate() {
 }
 
 function requestArticlesFd() {
-  sessionStorage.setItem("pageNum", Number(sessionStorage.getItem("pageNum")) + 1);
-  getData();
+  if (sliceFurther) {
+    sessionStorage.setItem("pageNum", Number(sessionStorage.getItem("pageNum")) + 1);
+    getData();
+  }
 }
 
 function requestArticlesBk() {

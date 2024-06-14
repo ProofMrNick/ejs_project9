@@ -119,6 +119,14 @@ header {
   width: 100%;
 }
 
+#pinnedContent > h5, #mainContent > h5 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0;
+  place-self: center;
+}
+
 #pinnedArticles, #articlesAll {
   font-family: 'Playfair Display', serif;
   font-weight: 900;
@@ -126,6 +134,59 @@ header {
   cursor: auto;
   margin: 0 0 4% 0;
 }
+
+
+
+.div-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  place-self: center;
+  gap: 7.5px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.loader-elem {
+  background-color: #20242E;
+  height: 0.65em;
+  width: 0.65em;
+  border-radius: 50%;
+}
+
+  .loader-elem-animate {
+    animation: loader 0.9s ease-in-out 2 alternate;
+  }
+
+  @keyframes loader {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-1.1em); }
+  }
+
+.loader li:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.loader li:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.div-loader > h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0;
+}
+
+
 
 #mainContent {
   display: flex;

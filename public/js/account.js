@@ -16,6 +16,7 @@ function loadAccountView(details) {
     .removeChild(document.getElementById("controls"));
   var header = document.getElementById("header");
   header.innerHTML = details.name.split(" ").join(" ");
+  document.title = details.name.split(" ").join(" ") + " - конструктор";
 
   var paragraph = document.getElementById("paragraph");
   paragraph.innerHTML = "Статьи";

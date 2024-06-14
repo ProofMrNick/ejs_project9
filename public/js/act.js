@@ -81,6 +81,11 @@ function doThis(today, image, header, type, content, author_email, likes, downvo
     e.setAttribute("src", content[i]);
     e.setAttribute("class", "createdI");
     root.appendChild(e);
+    if (i < type.length - 1) {
+      if (type[i + 1] == "h4") {
+        brN.style.margin = "1%";
+      }
+    }
     root.appendChild(brN);
 
   } else if (type[i] == "a") {
@@ -166,6 +171,17 @@ function doThis(today, image, header, type, content, author_email, likes, downvo
     var e = document.createElement(type[i]);
     e.innerHTML = content[i];
     e.setAttribute("class", "createdH4");
+    if (i > 0) {
+      if (type[i - 1] == "h4") {
+        e.style.textAlign = "justify";
+      }
+    } 
+    if (i < type.length - 1) {
+      if (type[i + 1] == "h4") {
+        e.style.textAlign = "justify";
+        brN.style.margin = "1%";
+      }
+    }
     root.appendChild(e);
     root.appendChild(brN);
 

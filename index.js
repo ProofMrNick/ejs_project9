@@ -1,10 +1,111 @@
+
 var express = require('express');
 var app = express();
 
 const fs = require('fs');
 
 const crypto = require("crypto-js");
-const key = "vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3";
+const key = process.env['KEY'];
+
+const path = require('path');
+const git = require("isomorphic-git");
+const http = require("isomorphic-git/http/node");
+
+const dir = path.join(process.cwd(), 'dbase');
+
+// add git and crypto
+async function syncToGitHub() {
+  try {
+    await git.clone({ fs, http, dir, url: 'https://github.com/ProofMrNick/database.git' });
+
+    await git.pull({
+        fs,
+        http,
+        url: 'https://github.com/ProofMrNick/database.git',
+        dir: dir,
+        ref: 'main',
+        singleBranch: true,
+        author: {
+            email: 'server@authored',
+            name:  'server'
+        },
+    }).then(() => {
+        fs.readFile(dir + '/dbaseGIT.json', 'utf8', (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          fs.writeFile('./database.json', crypto.AES.decrypt(data, key).toString(crypto.enc.Utf8), err => {
+          if (err) {
+            console.log(err);
+          }
+         });
+        }
+      });
+    });
+  } catch(e) {
+    console.error(e.stack);
+  }
+}
+
+syncToGitHub();
+
+
+async function pushToGithub() {
+  try {
+    await git.clone({ fs, http, dir, url: 'https://github.com/ProofMrNick/database.git' });
+
+    await git.pull({
+        fs,
+        http,
+        url: 'https://github.com/ProofMrNick/database.git',
+        dir: dir,
+        ref: 'main',
+        singleBranch: true,
+        author: {
+            email: 'server@authored',
+            name:  'server'
+        },
+    });
+
+    fs.readFile('./database.json', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        var encryptedData = crypto.AES.encrypt(data, key).toString();
+        fs.promises.writeFile(dir + '/dbaseGIT.json', encryptedData);
+      }
+    });
+
+    await git.add({ fs, dir: dir, filepath: 'dbaseGIT.json' });
+
+    await git.commit({
+      fs,
+      dir: dir,
+      author: {
+        email: 'server@authored',
+        name:  'server'
+      },
+      message: 'Changed synced file to Node side file.'
+    });
+
+    await git.push({
+      fs,
+      http,
+      dir: dir,
+      remote: 'origin',
+      ref: 'main',
+      onAuth: () => ({ username: process.env['TOKEN'], password: 'x-oauth-basic' }),
+    });
+
+    let qwe = await git.log({fs, dir, ref: 'main'});
+    console.log(qwe);
+
+  } catch (e) {
+      console.error(e.stack);
+  }
+}
+
+
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -96,7 +197,7 @@ function lookup(data, source, dup) {
       break
     } 
   }
-  
+
   if (flag) {
     var articles = []
     var articlesDups = []
@@ -109,7 +210,7 @@ function lookup(data, source, dup) {
     var act = data.find((el) => 
       el.id == source && el.add_info.dup == dup
     );
-    
+
     return [true, act, articles, articlesDups, data.indexOf(act)]
   } else {
     return [false]
@@ -177,15 +278,15 @@ app.use(express.json());
 app.post("/api", function(req, res) {
   console.log(req.body);
   if (req.body.do == "signup") {
-    
+
     writeData(req.body.prov_data)
       .then(
-        result => res.json('account created'),
+        result => pushToGithub().then(() => {res.json('account created')}),
         error => res.json(error)
       );
-    
+
   } else if (req.body.do == "login") {
-    
+
     readData.then(function(dbase) {
       var key = req.body.prov_data.email;
       if (key in dbase && dbase[key].password == req.body.prov_data.password) {
@@ -198,9 +299,9 @@ app.post("/api", function(req, res) {
         res.json("failed to login")
       }
     })
-    
+
   } else if (req.body.do == "delete") {
-    
+
     fs.readFile('./database.json', 'utf8', (error, data1) => {
       if (error) {
         res.json("failed to delete");
@@ -213,7 +314,9 @@ app.post("/api", function(req, res) {
             if (err) {
               res.json("failed to delete");
             } else {
-              res.json("deleted successfully");
+              pushToGithub().then(() => {
+                res.json("deleted successfully");
+              });
             }
           });
         } else {
@@ -221,7 +324,7 @@ app.post("/api", function(req, res) {
         }
       }
     }); 
-    
+
   } else if (req.body.do == "update_action") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
@@ -248,7 +351,9 @@ app.post("/api", function(req, res) {
             if (err) {
               res.json("failed to update action");
             } else {
-              res.json("action updated successfully");
+              pushToGithub().then(() => {
+                res.json("action updated successfully");
+              });
             }
           });
         } else {
@@ -256,7 +361,7 @@ app.post("/api", function(req, res) {
         }
       }
     }); 
-    
+
   } else if (req.body.do == "create_action") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
@@ -275,12 +380,14 @@ app.post("/api", function(req, res) {
           if (err) {
             res.json("failed to create action");
           } else {
-            res.json("action created successfully");
+            pushToGithub().then(() => {
+              res.json("action created successfully");
+            });
           }
         });
       }
     });
-    
+
   } else if (req.body.do == "update_name") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
@@ -293,12 +400,14 @@ app.post("/api", function(req, res) {
           if (err) {
             res.json("failed to update name");
           } else {
-            res.json("name updated successfully");
+            pushToGithub().then(() => {
+              res.json("name updated successfully");
+            });
           }
         });
       }
     });
-    
+
   } else if (req.body.do == "like") {
 
     fs.readFile('./database.json', 'utf8', (error, data1) => {
@@ -326,7 +435,9 @@ app.post("/api", function(req, res) {
             if (err) {
               res.json("failed to like");
             } else {
-              res.json(JSON.stringify([act_l, act_d]));
+              pushToGithub().then(() => {
+                res.json(JSON.stringify([act_l, act_d]));
+              });
             }
           });
         } else {
@@ -362,7 +473,9 @@ app.post("/api", function(req, res) {
             if (err) {
               res.json("failed to downvote");
             } else {
-              res.json(JSON.stringify([act_l, act_d]));
+              pushToGithub().then(() => {
+                res.json(JSON.stringify([act_l, act_d]));
+              });
             }
           });
         } else {
@@ -373,6 +486,7 @@ app.post("/api", function(req, res) {
 
   } else if (req.body.do == "fetch_data") {
 
+    syncToGitHub();
     fs.readFile('./database.json', 'utf8', (error, data1) => {
     if (error) {
       res.json("failed to fetch");
@@ -380,7 +494,7 @@ app.post("/api", function(req, res) {
       var fetched = [];
       data = JSON.parse(data1);
       var keys = Object.keys(data);
-      
+
       for (var m = 0; m < keys.length; m++) {
         for (var n = 0; n < data[keys[m]].actions.length; n++) {
           if (data[keys[m]].actions[n].action_hidden == false) {
@@ -410,45 +524,23 @@ app.post("/api", function(req, res) {
 
       var perPage = 10;
 
-      var ready_to_send = fetched.slice( Number(0 + (perPage * (Number(req.body.prov_data) - 1))), Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) );
+      var pinned = fetched.filter((action) => action.pinned);
+      var regular = fetched.filter((action) => !action.pinned);
 
-      for (var i = 0; i < fetched.length; i++) {
-        if (fetched[i].pinned == true &&
-            !ready_to_send.includes(fetched[i])) {
-          ready_to_send.push(fetched[i]);
-        }
-      }
+      var ready_to_send = regular.slice( Number(0 + (perPage * (Number(req.body.prov_data) - 1))), Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) );
+      pinned.forEach((action) => { ready_to_send.push(action) });
+
+      var sliceFurther = regular.slice( Number(perPage + (perPage * (Number(req.body.prov_data) - 1))) ).length > 0;
+      ready_to_send = [sliceFurther, ready_to_send];
 
       console.log(ready_to_send);
       res.json(ready_to_send);
-      
+
     }
     });
-    
+
   }
 });
-
-
-
-
-
-
-/*
-// Importing the crypto module
-const data = "This is the data that need to be encrypted";
-
-
-// Encrypte the data
-const encrypted = crypto.AES.encrypt(data, key).toString();
-
-// Printing the encrypted data
-console.log(encrypted);
-
-// Decrypting the data
-const decrypted = crypto.AES.decrypt(encrypted, key)
-                  .toString(crypto.enc.Utf8);
-console.log(decrypted);
-*/
 
 
 
