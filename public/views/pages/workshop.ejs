@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>конструктор - Мастерская</title>
+    <link rel="icon" href="/img/box-icon.png">
+    <link href="/css/workshop.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Anonymous+Pro:wght@400;700&family=Inclusive+Sans&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:wght@400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+  <body>
+      <p id="gen"><%= data %></p>
+      <header id="head">
+      <img id="head-image" onclick="toMain()" src="/img/logo-yellow.svg">
+      <div>
+        <button id="top-left-btn">для организаций</button>
+        <button onclick="toIndex()" id="top-right-btn-noborder">стать автором</button>
+      </div>
+      </header>
+
+      <h1 id="mainH1">Создание новой статьи</h1>
+       <div id="main">
+        <div id="items">
+          <div id="innerItems">
+            <span class="separator"></span>
+            <h2>Заголовок</h2>
+            <textarea id="h1Inp" rows="5" class="textareaElement"></textarea>
+            <p>Заголовок статьи будет виден всем пользователям</p>
+            <h2>Обложка</h2>
+            <textarea id="imgInp" rows="1" class="textareaElement"></textarea>
+            <p>Обложка статьи будет видна всем пользователям</p>
+            <p class="with-icons left-aligned"><i class="material-symbols-outlined">public</i><span class="hidden">o</span>Вставьте ссылку на изображение из Интернета в поле выше</p>
+          </div>
+          <h1 class="left-aligned"">Добавление новых элементов статьи</h1>
+          <button id="addElem" onclick="addElems()" class="with-icons"><i class="material-symbols-outlined">add</i><span class="hidden">o</span>Добавить элемент</button>
+        </div>
+         
+        <div id="nav">
+          <div id="finishBox">
+            <h2 class="left-aligned">Публикация статьи</h2>
+            <h3 class="left-aligned">Название статьи</h3>
+            <input id="title">
+            <p>Какое название эта статья будет иметь только для Вас только в Вашем аккаунте</p>
+            <h3 class="left-aligned">Параметры приватности</h3>
+            <div id="privacy">
+              <h3 id="inpPub" onclick="privacyPub()" class="chosenPrivacy">Публичная</h3>
+              <h3 id="inpPri" onclick="privacyPri()">Частная</h3>
+            </div>
+            <p>Публичная статья видна всем пользователям, частная - только Вам</p>
+            <button id="doPublish" onclick="pushNewAction()">Опубликовать</button>
+            <p id="preview" onclick="preview()" class="with-icons">Предпросмотр<i class="material-symbols-outlined">chevron_right</i></p>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+      <div class="dv1">
+        <div class="dv2">
+          <h2>быстрый доступ</h2>
+          <div class="dv3">
+            <div class="dv4">
+              <p>сообщить об ошибке</p>
+            </div>
+            <div class="dv4">
+              <p>написать нам</p>
+            </div>
+          </div>
+        </div>
+        <div class="dv2">
+          <h2>навигация</h2>
+          <div class="dv3">
+            <div class="dv4">
+              <p onclick="toMain()">на главную страницу</p>
+            </div>
+            <div class="dv4">
+              <p onclick="toIndex()">на страницу входа и регистрации</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dv1">
+        <img id="btm-logo" src="/img/logo-btm.svg">
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/6.0.1/autosize.min.js"></script>
+    <script src="/js/workshop.js"></script>
+  </body>
+</html>

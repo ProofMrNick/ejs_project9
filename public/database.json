@@ -1,0 +1,398 @@
+{
+    "poi": {
+        "name": "poi",
+        "email": "poi",
+        "password": "poi",
+        "actions": [
+            "Finances",
+            "Deep Oceans",
+            "Nature"
+        ]
+    },
+    "wer@wer.com": {
+        "name": "Александр Кузнецов",
+        "email": "wer@wer.com",
+        "password": "wer",
+        "role": "user",
+        "add_info": [],
+        "actions": [
+            {
+                "title": "Business",
+                "today": "18.11.2023",
+                "fullToday": "18.11.2023 13:56:51",
+                "image": "https://w.forfun.com/fetch/3f/3fcd6d936c26c5c5050c78412da9bb9d.jpeg",
+                "header": "Business",
+                "type": [
+                    "p",
+                    "h2"
+                ],
+                "content": [
+                    "business text",
+                    "head h1"
+                ],
+                "author_email": "wer@wer.com",
+                "id": "business",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": true
+            },
+            {
+                "title": "Новая статья",
+                "today": "02.12.2023",
+                "fullToday": "02.12.2023 19:54:56",
+                "image": "rftgyhk8",
+                "header": "test_2",
+                "type": [
+                    "h3",
+                    "p",
+                    "a",
+                    "p",
+                    "p",
+                    "p",
+                    "p"
+                ],
+                "content": [
+                    "rfr",
+                    "",
+                    "yuttr",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "author_email": "wer@wer.com",
+                "id": "test-2",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            },
+            {
+                "title": "Проект 3",
+                "today": "16.12.2023",
+                "fullToday": "16.12.2023 21:43:32",
+                "image": "ккака",
+                "header": "Проект 3",
+                "type": [
+                    "h3",
+                    "img",
+                    "p",
+                    "p"
+                ],
+                "content": [
+                    "текст",
+                    "https://img.razrisyika.ru/kart/2/4830-kotik-26.jpg",
+                    " ",
+                    " "
+                ],
+                "author_email": "wer@wer.com",
+                "id": "проект-3",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "poi"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            },
+            {
+                "title": "Спорт",
+                "today": "23.12.2023",
+                "fullToday": "23.12.2023 13:18:30",
+                "image": "https://opis-cdn.tinkoffjournal.ru/mercury/sports-and-brain-main.yjdei0..jpg?preset=image_570w_2x",
+                "header": "Как спорт влияет на мозг",
+                "type": [
+                    "h2",
+                    "h3",
+                    "h3",
+                    "h2",
+                    "p",
+                    "a",
+                    "p",
+                    "p",
+                    "p",
+                    "h2",
+                    "h3",
+                    "blockquote",
+                    "blockquote",
+                    "blockquote",
+                    "blockquote",
+                    "p"
+                ],
+                "content": [
+                    "И что делать, чтобы начать тренироваться и не бросить через неделю",
+                    "Хорошая память и концентрация внимания, профилактика депрессии, снижение стресса и тревожности — все это возможные положительные эффекты физической активности.",
+                    "Но важно тренироваться правильно: занятия должны быть регулярными, а выбирать лучше тренировки среднего уровня сложности. Рассказываем, почему движение ног влияет на работу мозга, какие виды спорта полезнее всего и что делать, чтобы добавить тренировки в свою жизнь.",
+                    "Как связаны физические упражнения и мозг",
+                    "Многие исследования показали, что благодаря тренировкам улучшается память и концентрация внимания, снижается риск развития болезни Альцгеймера и отступает тревожность. Хотя механизм влияния физической активности на мозг изучен не до конца, есть несколько версий, почему это происходит.",
+                    "https://www.frontiersin.org/articles/10.3389/fnagi.2013.00075/full",
+                    "Улучшение кровоснабжения. Упражнения заставляют сердце биться чаще, оно перегоняет больше крови. А кровь поступает в мозг, в том числе и в структуры, отвечающие за память, внимание и другие когнитивные функции.",
+                    "Причем кровоснабжение улучшается не только на время тренировки. Эксперименты на животных показали, что благодаря физической активности в мозге повышается уровень белка VEGF, отвечающего за рост новых кровеносных сосудов. Также с улучшенным кровоснабжением связывают процесс формирования новых нейронов.",
+                    "Новые нейроны и связи между ними. Работа мозга зависит от белка BDNF, который включает гены, контролирующие появление нейронов и связей между ними. Именно благодаря BDNF мозг может физически меняться, когда мы узнаем что-то новое. Во время работы мышц запускаются процессы для синтеза этого белка.",
+                    "Мнение эксперта",
+                    "Помогут ли занятия спортом выйти из депрессивного эпизода",
+                    "Существует много исследований, которые показывают, что занятия спортом улучшают настроение и действительно могут сгладить симптоматику депрессивного эпизода. Некоторые исследования даже говорят об одинаковом уровне эффективности медикаментозного воздействия, психотерапии и физических упражнений при лечении депрессии.",
+                    "При этом очень важно понимать, что депрессивные эпизоды бывают разной глубины и по-разному протекают у разных людей. Поэтому не надо убеждать никого в депрессивном эпизоде, что достаточно пойти побегать и все как рукой снимет: у человека нарушено функционирование эмоционально-волевой сферы, он не всегда может заставить себя сделать какие-то базовые вещи, не то что заняться спортом.",
+                    "И конечно, ни в коем случае не стоит бросать прием назначенных антидепрессантов или отказываться от психотерапии, заменив все спортом. Только специалист, который вас наблюдает, может принять решение, когда можно прекратить прием антидепрессантов.",
+                    "Но в любом случае стоит заняться спортом, как только найдутся силы. Хотя бы начать гулять.",
+                    ""
+                ],
+                "author_email": "wer@wer.com",
+                "id": "как-спорт-влияет-на-мозг",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            },
+            {
+                "title": "Котик",
+                "today": "24.02.2024",
+                "fullToday": "24.02.2024 15:29:46",
+                "image": "https://mykaleidoscope.ru/x/uploads/posts/2022-10/1666173208_56-mykaleidoscope-ru-p-spyashchie-koti-instagram-62.jpg",
+                "header": "Котик спит",
+                "type": [
+                    "h2",
+                    "blockquote",
+                    "p",
+                    "img",
+                    "h4",
+                    "p",
+                    "p",
+                    "p",
+                    "p"
+                ],
+                "content": [
+                    "Кот Одуванчик спит",
+                    "",
+                    "",
+                    "https://wp-s.ru/wallpapers/0/68/543795423347396/spyashhij-seryj-kot-na-beloj-prostyne.jpg",
+                    "Котик спит и храпит",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "author_email": "wer@wer.com",
+                "id": "котик-спит",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            },
+            {
+                "title": "123",
+                "today": "20.04.2024",
+                "fullToday": "20.04.2024 17:09:49",
+                "image": "rffrftgt",
+                "header": "ern3ionrinbrnknvkrfv",
+                "type": [
+                    "img",
+                    "h4",
+                    "h4",
+                    "img",
+                    "h4",
+                    "p"
+                ],
+                "content": [
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG/825px-Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG/825px-Vista_de_Tarazona%2C_Espa%C3%B1a%2C_2015-01-02%2C_DD_07.JPG",
+                    "The Nicoll Highway collapse occurred in Singapore on 20 April 2004 when a Mass Rapid Transit tunnel construction site caved in near the highway next to the Merdeka Bridge. Four workers were killed and three were injured, delaying the construction of the Circle Line. The collapse was caused by a poorly designed strut-waler support system, a lack of monitoring and proper management of data caused by human",
+                    "As expected with a Community Day event, Bellsprout will spawn in huge numbers in Pokémon Go with a high chance for it to appear shiny. There are also several other bonuses and perks, which we’ve listed out below."
+                ],
+                "author_email": "wer@wer.com",
+                "id": "ern3ionrinbrnknvkrfv",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": true
+            }
+        ]
+    },
+    "koi": {
+        "name": "koi",
+        "email": "koi",
+        "password": "koi",
+        "actions": [
+            "one",
+            "two",
+            "three"
+        ]
+    },
+    "ewq@ewq.ewq": {
+        "name": "Иван Вольнов",
+        "email": "ewq@ewq.ewq",
+        "password": "ewq",
+        "role": "mod",
+        "add_info": [],
+        "actions": [
+            {
+                "title": "Как создать статью",
+                "today": "30.12.2023",
+                "fullToday": "30.12.2023 14:32:32",
+                "image": "https://scx2.b-cdn.net/gfx/news/hires/2022/construction-crane.jpg",
+                "header": "Что такое Конструктор, или Как заявить о себе миру журналистики",
+                "type": [
+                    "h2",
+                    "p",
+                    "p",
+                    "h2",
+                    "p",
+                    "p",
+                    "blockquote",
+                    "h2",
+                    "h3",
+                    "p",
+                    "h3",
+                    "p",
+                    "h3",
+                    "h2",
+                    "p"
+                ],
+                "content": [
+                    "Начало работы с Конструктором",
+                    "Для начала необходимо зарегистрироваться на платформе. Сделать это можно на странице входа и регистрации, попасть на которую возможно, нажав кнопку \"стать автором\" в верхнем меню.",
+                    "Создав аккаунт, Вы вольны творить и создавать любые статьи, вести личный блог или журнал, делиться своими работами с другими авторами и читателями, а также посещать странички коллег-журналистов, обмениваться с ними опытом и набираться вдохновением.",
+                    "Создание статей",
+                    "Для Вас представлены различные инструменты творчества, такие, как набор готовых элементов (ознакомиться с ними можно в Мастерской; чтобы попасть туда, перейдите в свой аккаунт и кликните в самом верху \"создать новый проект\").",
+                    "Вы также можете менять настройки приватности в любое время, выбирая кто сможет прочитать Ваши статьи - все пользователи или только Вы.",
+                    "Помните: если Вы поделились ссылкой на статью, к которой позже ограничили доступ, никто, кроме Вас, не сможет ее прочитать, даже пользователи со ссылкой. Когда Вы снова измените настройки приватности, доступ к ней вновь откроется у всех.",
+                    "Возможности личного кабинета",
+                    "I. Свой аккаунт",
+                    "Перейдя в свой личный кабинет (или аккаунт), Вы можете изменить свои  личные данные (для этого нажмите на свое имя в центре экрана); выбрав статью из предложенных, Вы имеете возможность отредактировать ее, внести каке-либо изменения (например подправить заголовок или изменить настройки приватности) или если нужно, вовсе удалить ее навсегда.",
+                    "II. Аккаунт другого пользователя",
+                    "Вы можете посещать личные кабинеты других пользователей платформы, читать их статьи (если к статьям открыт доступ, конечно), оценивать их и делиться ими. В будущем будет также добавлена возможность комментирования статей.",
+                    "Спасибо за внимание, оставайтесь на связи и следите за обновлениями!",
+                    "―",
+                    "конструктор версии 10"
+                ],
+                "author_email": "ewq@ewq.ewq",
+                "id": "что-такое-конструктор-или-как-заявить-о-себе-миру-журналистики",
+                "pinned": true,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "oleg@mailservice.ru",
+                        "wer@wer.com",
+                        "ewq@ewq.ewq"
+                    ],
+                    "comms": [],
+                    "downvotes": [],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            }
+        ]
+    },
+    "oleg@mailservice.ru": {
+        "name": "Олег Баранов",
+        "email": "oleg@mailservice.ru",
+        "password": "12346",
+        "role": "user",
+        "add_info": [],
+        "actions": [
+            {
+                "title": "Ель",
+                "today": "30.03.2024",
+                "fullToday": "30.03.2024 15:17:02",
+                "image": "https://gas-kvas.com/grafic/uploads/posts/2023-10/1696520365_gas-kvas-com-p-kartinki-yel-13.jpg",
+                "header": "Особенности ели",
+                "type": [
+                    "h2",
+                    "p",
+                    "img",
+                    "h4",
+                    "p"
+                ],
+                "content": [
+                    "Понятие ели",
+                    "Ель относится к роду хвойных вечнозелёных деревьев семейства Сосновые. Около 40 видов вечнозелёных высоких деревьев с красивой кроной, распространённых в умеренных и холодных районах Северного полушария.",
+                    "https://avatars.mds.yandex.net/get-entity_search/479903/857730727/orig",
+                    "Шишка ели.",
+                    ""
+                ],
+                "author_email": "oleg@mailservice.ru",
+                "id": "особенности-ели",
+                "pinned": false,
+                "stats": {
+                    "views": [],
+                    "likes": [
+                        "oleg@mailservice.ru",
+                        "wer@wer.com"
+                    ],
+                    "comms": [],
+                    "downvotes": [
+                        "ewq@ewq.ewq"
+                    ],
+                    "ratio": 0
+                },
+                "add_info": {
+                    "dup": 0
+                },
+                "action_hidden": false
+            }
+        ]
+    }
+}

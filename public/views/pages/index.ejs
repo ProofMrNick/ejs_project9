@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>конструктор - Главная</title>
+    <link href="/css/index.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/img/box-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Anonymous+Pro:wght@400;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:wght@400;500;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body style="visibility:hidden">
+  <header>
+    <div id="top">
+      <div id="top-content">
+        <img id="main-logo" src="img/logo-yellow.svg">
+        <div>
+          <button id="top-left-btn">для организаций</button>
+          <button id="top-right-btn">стать автором</button>
+        </div>
+      </div>
+    </div>
+    <div id="header-content">
+      <div id="words">
+        <h1 class="wel-words">Читайте.</h1>
+        <h1 class="wel-words">Создавайте.</h1>
+        <h1 class="wel-words">Делитесь.</h1>
+      </div>
+    </div>
+  </header>
+  <div id="main">
+    <div id="content">
+      <div id="pinnedContent">
+        <h1 id="pinnedArticles">Закрепленные статьи</h1>
+        <%- include('../partials/loader.ejs') %>
+      </div>
+      <div id="mainContent">
+        <h1 id="articlesAll">Статьи от сообщества</h1>
+        <%- include('../partials/loader.ejs') %>
+      </div>
+    </div>
+    <div id="nav">
+      <button id="buttonSwitchB" onclick="hideNavBox()">
+        <i class="material-icons">arrow_back_ios</i>
+      </button>
+      <div id="sortBox">
+        <h1 class="h1">Сортировать по</h1>
+        <br>
+        <select>
+          <option selected onclick="sortByNew()">самым новым</option>
+        </select>
+      </div>
+      <button id="buttonSwitchF" onclick="showNavBox()">
+        <i class="material-icons">arrow_forward_ios</i>
+      </button>
+      <div id="navBox">
+        <h1 class="h1">Найдите больше статей</h1>
+        <p>E-mail автора</p>
+        <input id="emailSearch" disabled>
+        <p>Название статьи</p>
+        <input id="headerSearch" disabled>
+        <br>
+        <button id="searchArticles" disabled>Поиск</button>
+      </div>
+      <!-- ENABLE INPUTS & BUTTONS WHEN DONE IN JS -->
+    </div>
+  </div>
+  <div id="bottomControls">
+     <button id="bk"><i class="material-icons">chevron_left</i>Предыдущая</button>
+     <p id="pageP">- 1 -</p>
+     <button id="fd" onclick="requestArticlesFd()">Следующая<i class="material-icons">chevron_right</i></button>
+  </div>
+  <footer>
+    <div class="dv1" id="dv1">
+      <div class="dv2">
+        <h2>быстрый доступ</h2>
+        <div class="dv3">
+          <div class="dv4">
+            <p>сообщить об ошибке</p>
+          </div>
+          <div class="dv4">
+            <p>написать нам</p>
+          </div>
+        </div>
+      </div>
+      <div class="dv2">
+        <h2>навигация</h2>
+        <div class="dv3">
+          <div class="dv4">
+            <p onclick="toMain()">на главную страницу</p>
+          </div>
+          <div class="dv4">
+            <p onclick="toIndex()">на страницу входа и регистрации</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dv1">
+      <img id="btm-logo" src="/img/logo-btm.svg">
+    </div>
+  </footer>
+  
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width">
+  <title>конструктор - Вход и Регистрация</title>
+  <link rel="icon" href="/img/box-icon.png">
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Anonymous+Pro:wght@400;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+ </head>
+
+  <body id="body" style="visibility:hidden">
+      <img id="topImg" onclick="toMainPage()" src="img/logo-full-dark-font.svg">
+      <div id="main1">
+        <div id="inner1_1">
+          <img onclick="toMainPage()" src="img/logo-full-dark-font.svg">
+        </div>
+        <div id="inner1_2">
+          <p id="upperItem"><span id="logIn1">вход</span><span id="signUp1">регистрация</span></p>
+          <div class="form">
+            <label for="email1">почта:</label>
+            <input type="email" id="email1" name="email1" required>
+            <label for="password1">пароль:</label>
+            <input type="password" id="password1" name="password1" required>
+            <div class="btn-div">
+              <button id="button1" onclick="checkData()">войти</button>
+            </div> 
+          </div>
+        </div>
+      </div>
+
+      <div id="main2">
+        <div id="inner2_1">
+          <img onclick="toMainPage()" src="img/logo-full-dark-font.svg">
+        </div>
+        <div id="inner2_2">
+          <p id="upperItem"><span id="logIn2">вход</span><span id="signUp2">регистрация</span></p>
+          <div class="form">
+             <label for="text2">имя и фамилия:</label>
+             <input type="text" id="text2" name="text2" required>
+             <label for="email2">почта:</label>
+             <input type="email" id="email2" name="email2" required>
+             <label for="password">придумайте пароль:</label>
+             <input type="password" id="password2" name="password2" required>
+             <div class="btn-div">
+              <button id="button2" onclick="harvestData()">стать автором</button>
+             </div>
+          </div>
+        </div> 
+      </div>
+    <script src="/js/login.js" type="text/javascript"></script>
+  </body>
+
+</html>

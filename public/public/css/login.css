@@ -1,0 +1,261 @@
+
+#body {
+  background-color: #FFC017;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("/img/newspapers.jpg");
+  background-size: cover;
+}
+
+#main1, #main2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 77.5%;
+  width: 60%;
+}
+
+img:not(#topImg) {
+  margin-bottom: 7.5%;
+  width: 85%;
+  aspect-ratio: auto;
+}
+
+  img:hover {
+    cursor: pointer;
+    aspect-ratio: auto;
+  }
+
+#topImg {
+  display: none;
+  width: 40%;
+  z-index: 100;
+}
+
+#inner1_1, #inner2_1 {
+  background-color: #FFC017;
+  height: 100%;
+  width: 35%;
+  border-radius: 25px 0 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#inner1_2, #inner2_2 {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 0 25px 25px 0;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7.5%;
+}
+
+button {
+  background-color: white;
+  color: #20242E;
+  border: 1.5px solid #20242E;
+  border-radius: 100px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 130%;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+  button:hover {
+    background-color: #20242E;;
+    color: white;
+    transition-timing-function: linear;
+    transition-property: background-color;
+    transition-duration: 0.1s;
+  }
+
+#button1 {
+  padding: 2.5% 15% 2.5% 15%;
+}
+
+#button2 {
+  padding: 2.5% 7.5% 2.5% 7.5%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 60%;
+}
+
+label {
+  font-size: 150%;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 6.5%;
+}
+
+input {
+  border: 1.5px solid #20242E;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 150%;
+  padding: 3% 4% 3% 4%;
+  color: #20242E;
+  margin-bottom: 6.5%;
+}
+
+#upperItem {
+  margin-bottom: 6%;
+  font-size: 100%;
+}
+
+span {
+  padding: 8px 14px 8px 14px;
+  margin: 0 3% 0 3%;
+}
+
+#logIn1 {
+  font-weight: 800;
+  border-radius: 100px;
+  background-color: #20242E;
+  color: white;
+}
+
+#logIn2 {
+  font-weight: 600;
+  border-radius: 0;
+  background-color: white;
+  color: #20242E;
+}
+
+#signUp1 {
+  font-weight: 600;
+  border-radius: 0;
+  background-color: white;
+  color: #20242E;
+}
+
+#signUp2 {
+  font-weight: 800;
+  border-radius: 100px;
+  background-color: #20242E;
+  color: white;
+}
+
+  #signUp1:hover, #logIn2:hover{
+    cursor: pointer;
+  }
+
+
+@media screen and (max-width: 990px),
+       screen and (max-height: 600px) { 
+  #inner1_1, #inner2_1 {
+    display: none;
+  }
+
+  #inner1_2, #inner2_2 {
+    border-radius: 25px;
+    width: 90%;
+  }
+
+  #topImg {
+    display: block;
+    position: relative;
+  }
+
+  html, body {
+    background-color: #FFC017;
+  }
+}
+
+
+@media screen and (max-width: 840px),
+       screen and (max-height: 600px) {
+  #main1, #main2 {
+    width: 80%;
+    height: 90%;
+  }
+
+  #inner1_2, #inner2_2 {
+    width: 100%;
+    border-radius: 25px;
+  }
+
+  #inner1_1, #inner2_1 {
+    display: none;
+  }
+
+  #topImg {
+    display: block;
+    position: relative;
+  }
+
+  html, body {
+    background-color: #FFC017;
+    background-image: none;
+  }
+}
+
+
+@media screen and (max-width: 570px),
+       screen and (max-height: 600px) {
+  #main1, #main2 {
+    width: 100%;
+    height: 100%;
+  }
+
+  #inner1_1, #inner2_1 {
+    display: none;
+  }
+
+  #inner1_2, #inner2_2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  #topImg {
+    display: block;
+    position: relative;
+  }
+
+  label {
+    font-size: 100%;
+  }
+
+  button {
+    font-size: 100%;
+  }
+
+  #button2 {
+    width: 80%;
+  }
+
+  html, body {
+    background-color: #FFC017;
+    background-image: none;
+  }
+}
