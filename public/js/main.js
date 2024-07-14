@@ -14,6 +14,34 @@ setInterval(() => {
   }, 20);
 }, 4000);
 
+
+function displayRole(role) {
+  document.querySelectorAll(".displayedMessage").forEach((elem) => {
+    document.body.removeChild(elem);
+  });
+  var messageToDisplay = document.createElement("div");
+  messageToDisplay.classList.add("displayedMessage");
+  messageToDisplay.innerHTML = 
+    `<p>Это ${
+      (role == "mod") 
+        ? "<span style='color:var(--light-blue); font-weight:600;'>модератор</span>" 
+        : "<span style='color:var(--yellow); font-weight:600;'>представитель организации</span>"
+    }. Правая кнопка мыши, чтобы узнать подробнее</p>`;
+  messageToDisplay.style.left = event.pageX + "px";
+  messageToDisplay.style.top = event.pageY - 55 + "px";
+  document.body.appendChild(messageToDisplay);
+}
+
+function terminateRoleMessages() {
+  document.querySelectorAll(".displayedMessage").forEach((elem) => {
+    document.body.removeChild(elem);
+  });
+}
+
+function teleport(dest) {
+  window.open(dest, "_blank");
+}
+
 var partialLoader = 
   `<div class="div-loader">
     <ul class="loader">
@@ -22,7 +50,7 @@ var partialLoader =
       <li class="loader-elem loader-elem-animate"></li>
     </ul>
     <h3>Загрузка</h3>
-  </div>`
+  </div>`;
 
 var partialLightLoader = 
   `<div class="div-loader">
@@ -31,7 +59,13 @@ var partialLightLoader =
       <li class="loader-elem loader-elem-animate"></li>
       <li class="loader-elem loader-elem-animate"></li>
     </ul>
-  </div>`
+  </div>`;
+
+var partialRoleMod = 
+  `<span class="role mod" onmousemove="displayRole('mod')" onmouseleave="terminateRoleMessages()" oncontextmenu="teleport('#')">MOD</span>`;
+
+var partialRoleOrg = 
+  `<span class="role org" onmousemove="displayRole('org')" onmouseleave="terminateRoleMessages()" oncontextmenu="teleport('#')">ORG</span>`;
 
 var noPinnedArticles = document.createElement("h5");
 noPinnedArticles.innerHTML = 
@@ -118,6 +152,7 @@ function getData() {
       let string = h1.innerHTML;
       h1.innerHTML = (string.split("").length < 100) ? string : string.split("").slice(0, 100).join("") + "...";
       h2.innerHTML = res[i].author_name;
+      h2.innerHTML += (res[i].role == "mod") ? partialRoleMod : (res[i].role == "org") ? partialRoleOrg : "";
       h2.href = "/" + res[i].author_email;
       p.innerHTML = "Опубликовано: " + res[i].today;
 

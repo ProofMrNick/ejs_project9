@@ -1,1 +1,1 @@
-{"version":2,"languages":{"nodejs-npm":{"specfileHash":"a20780fe73e9267251a999220de8bc04","lockfileHash":"f5aa739e6144e5a0c0354ba807738461"}}}
+{"version":2,"languages":{"nodejs-npm":{"specfileHash":"a20780fe73e9267251a999220de8bc04","lockfileHash":"f5aa739e6144e5a0c0354ba807738461","guessedImports":["crypto-js","isomorphic-git","express"],"guessedImportsHash":"dfdb2533540558e8ebbffb755bccc74f"}}}

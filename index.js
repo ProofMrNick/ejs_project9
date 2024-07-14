@@ -492,7 +492,7 @@ app.post("/api", function(req, res) {
       res.json("failed to fetch");
     } else {
       var fetched = [];
-      data = JSON.parse(data1);
+      var data = JSON.parse(data1);
       var keys = Object.keys(data);
 
       for (var m = 0; m < keys.length; m++) {
@@ -500,6 +500,7 @@ app.post("/api", function(req, res) {
           if (data[keys[m]].actions[n].action_hidden == false) {
             const currArt = structuredClone(data[keys[m]].actions[n]);
             currArt.author_name = data[keys[m]].name;
+            currArt.role = data[keys[m]].role;
             fetched.push(currArt);
           }
         }
@@ -522,7 +523,7 @@ app.post("/api", function(req, res) {
         return convertedDate[1] - convertedDate[0]
       });
 
-      var perPage = 10;
+      var perPage = 4;
 
       var pinned = fetched.filter((action) => action.pinned);
       var regular = fetched.filter((action) => !action.pinned);

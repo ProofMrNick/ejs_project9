@@ -251,6 +251,7 @@ function toIndex() {
 
 function like() {
   if (![null, undefined].includes(localStorage.getItem("logged"))) {
+    document.body.style.cursor = "progress";
     fetch("/api", {
       method: "POST", 
       headers: {
@@ -267,6 +268,7 @@ function like() {
       })
   
       .then(function(res) {
+        document.body.style.cursor = "auto";
         var res = JSON.parse(res);
         document.getElementById("likeButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>favorite</i>" + res[0].length;
         document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + res[1].length;
@@ -292,6 +294,7 @@ function like() {
 
 
 function downvote() {
+  document.body.style.cursor = "progress";
   if (![null, undefined].includes(localStorage.getItem("logged"))) {
     fetch("/api", {
       method: "POST", 
@@ -309,6 +312,7 @@ function downvote() {
       })
 
       .then(function(res) {
+        document.body.style.cursor = "auto";
         var res = JSON.parse(res);
         document.getElementById("likeButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>favorite</i>" + res[0].length;
         document.getElementById("downvoteButton").innerHTML = "<i class='material-symbols-outlined' style='margin-right:20%'>heart_broken</i>" + res[1].length;
@@ -354,6 +358,47 @@ if (![null, undefined].includes(localStorage.getItem("logged"))) {
   document.getElementById("top-right-btn").innerHTML = "стать автором";
   document.getElementById("top-right-btn").id = "top-right-btn";
 }
+
+
+
+// Experimenting with responsive design 
+
+function adjustSize() {
+  var headImg = document.getElementById("head-image");
+  var forOrgs = document.getElementById("top-left-btn");
+  var head = document.getElementById("head");
+  var outer = document.getElementById("outer");
+  var root = document.getElementById("root");
+  var nav = document.getElementById("nav");
+  
+  if (window.innerWidth <= 750) {
+    headImg.src = "/img/box-full-dark-font.png";
+    forOrgs.innerHTML = '<i class="material-icons">more_horiz</i>';
+    (window.innerWidth >= 450)
+      ? outer.style.margin = "0.5% 7.5% 0 7.5%"
+      : outer.style.margin = "0.5% 6.5% 0 6.5%";
+    (window.innerWidth <= 374) 
+      ? nav.style.width = "100%" 
+      : nav.style.width = "75%"; 
+  } else if (window.innerWidth <= 1100) {
+    headImg.src = "/img/logo-white.svg";
+    forOrgs.innerHTML = "для организаций";
+    root.style.marginRight = "2%";
+    nav.style.width = "40%";
+    head.style.padding = "1.5% 4.5% 0 4.5%";
+    outer.style.margin = "0.5% 4.5% 0 4.5%";
+  } else {
+    headImg.src = "/img/logo-white.svg";
+    forOrgs.innerHTML = "для организаций";
+    nav.style.width = "34%";
+    root.style.marginRight = "8%";
+    head.style.padding = "1.5% 6.5% 0 6.5%";
+    outer.style.margin = "0.5% 6.5% 0 6.5%";
+  }
+}
+
+adjustSize();
+window.addEventListener("resize", adjustSize);
 
 
 

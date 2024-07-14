@@ -76,7 +76,9 @@
                 "pinned": false,
                 "stats": {
                     "views": [],
-                    "likes": [],
+                    "likes": [
+                        "wer@wer.com"
+                    ],
                     "comms": [],
                     "downvotes": [],
                     "ratio": 0
@@ -110,7 +112,6 @@
                 "stats": {
                     "views": [],
                     "likes": [
-                        "wer@wer.com",
                         "poi"
                     ],
                     "comms": [],
@@ -215,7 +216,8 @@
                 "stats": {
                     "views": [],
                     "likes": [
-                        "wer@wer.com"
+                        "wer@wer.com",
+                        "ewq@ewq.ewq"
                     ],
                     "comms": [],
                     "downvotes": [],
@@ -281,7 +283,7 @@
         "name": "Иван Вольнов",
         "email": "ewq@ewq.ewq",
         "password": "ewq",
-        "role": "user",
+        "role": "mod",
         "add_info": [],
         "actions": [
             {
@@ -331,8 +333,8 @@
                     "views": [],
                     "likes": [
                         "oleg@mailservice.ru",
-                        "ewq@ewq.ewq",
-                        "wer@wer.com"
+                        "wer@wer.com",
+                        "ewq@ewq.ewq"
                     ],
                     "comms": [],
                     "downvotes": [],
